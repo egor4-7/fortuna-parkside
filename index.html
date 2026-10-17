@@ -63,9 +63,43 @@
             letter-spacing: 0.5px;
         }
 
+        .language-switch {
+            display: flex;
+            flex: 0 0 auto;
+            gap: 4px;
+            padding: 4px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--card-bg);
+        }
+
+        .language-switch button {
+            padding: 5px 8px;
+            border: 0;
+            border-radius: 5px;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .language-switch button:hover {
+            color: var(--text-main);
+        }
+
+        .language-switch button[aria-pressed="true"] {
+            background: var(--accent-color);
+            color: #07130b;
+        }
+
         nav {
             display: flex;
+            flex: 1 1 auto;
             gap: 20px;
+            justify-content: center;
             overflow-x: auto;
             scrollbar-width: none;
         }
@@ -161,14 +195,19 @@
             background: #35d46f;
         }
 
-        .btn-alt {
-            margin-left: 8px;
+        .donation-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn-secondary {
             border-color: var(--border-color);
             background: transparent;
             color: var(--text-main);
         }
 
-        .btn-alt:hover {
+        .btn-secondary:hover {
             background: var(--card-bg);
         }
 
@@ -189,6 +228,10 @@
             background: #151821;
         }
 
+        .support-card > p {
+            margin-bottom: 20px;
+        }
+
         footer {
             padding: 32px 20px;
             color: var(--text-muted);
@@ -202,16 +245,27 @@
 
         @media (max-width: 760px) {
             header {
-                align-items: flex-start;
-                flex-direction: column;
-                gap: 8px;
+                flex-wrap: wrap;
+                gap: 8px 16px;
                 padding: 12px 20px 10px;
+            }
+
+            .logo {
+                margin-right: auto;
+                order: 1;
+            }
+
+            .language-switch {
+                order: 2;
             }
 
             nav {
                 width: 100%;
+                flex: 0 0 100%;
                 gap: 18px;
+                justify-content: flex-start;
                 padding-bottom: 2px;
+                order: 3;
             }
 
             main {
@@ -229,12 +283,13 @@
         }
 
         @media (max-width: 420px) {
-            .btn-alt {
-                margin: 12px 0 0;
-            }
-
             .card {
                 padding: 20px;
+            }
+
+            .donation-actions .btn {
+                flex: 1 1 100%;
+                text-align: center;
             }
         }
 
@@ -254,86 +309,232 @@
 <body>
     <header>
         <div class="logo">FORTUNA PARKSIDE / 01</div>
-        <nav aria-label="Основная навигация">
-            <a href="#announcements">Объявления</a>
-            <a href="#budget">Взносы и бюджет</a>
-            <a href="#rules">Правила комплекса</a>
-            <a href="#amenities">Удобства</a>
-            <a href="#contacts">Управление и контакты</a>
+        <nav aria-label="Основная навигация" data-i18n-nav-label>
+            <a href="#announcements" data-i18n="navAnnouncements">Объявления</a>
+            <a href="#budget" data-i18n="navBudget">Взносы и бюджет</a>
+            <a href="#rules" data-i18n="navRules">Правила комплекса</a>
+            <a href="#amenities" data-i18n="navAmenities">Удобства</a>
+            <a href="#contacts" data-i18n="navContacts">Управление и контакты</a>
         </nav>
+        <div class="language-switch" role="group" aria-label="Выбор языка">
+            <button type="button" lang="tr" data-language="tr" aria-pressed="false">TR</button>
+            <button type="button" lang="ru" data-language="ru" aria-pressed="true">RU</button>
+            <button type="button" lang="en" data-language="en" aria-pressed="false">EN</button>
+        </div>
     </header>
 
     <main>
         <section id="hero" aria-labelledby="hero-title">
-            <h1 id="hero-title">Huzurlu yaşam,<br>şeffaf yönetim.</h1>
-            <p class="hero-copy">Сайт жилого комплекса Fortuna Parkside: актуальные новости, отчеты по бюджету и удобства для резидентов.</p>
-            <a href="#announcements" class="btn">Смотреть объявления ↓</a>
+            <h1 id="hero-title" data-i18n="heroTitle">Huzurlu yaşam, şeffaf yönetim.</h1>
+            <p class="hero-copy" data-i18n="heroCopy">Сайт жилого комплекса Fortuna Parkside: актуальные новости, отчеты по бюджету и удобства для резидентов.</p>
+            <a href="#announcements" class="btn" data-i18n="heroButton">Смотреть объявления ↓</a>
         </section>
 
         <section id="announcements" aria-labelledby="announcements-title">
-            <h2 id="announcements-title">01 / Объявления и новости</h2>
+            <h2 id="announcements-title" data-i18n="announcementsTitle">01 / Объявления и новости</h2>
             <div class="grid">
                 <article class="card">
-                    <h3>Обслуживание водопровода в блоке B</h3>
-                    <p>Плановые работы пройдут в пятницу, 14 июня, с 10:00 до 14:00.</p>
+                    <h3 data-i18n="announcementOneTitle">Обслуживание водопровода в блоке B</h3>
+                    <p data-i18n="announcementOneCopy">Плановые работы пройдут в пятницу, 14 июня, с 10:00 до 14:00.</p>
                 </article>
                 <article class="card">
-                    <h3>Летняя встреча в саду</h3>
-                    <p>В субботу, 22 июня, встречаемся на газоне с соседями.</p>
+                    <h3 data-i18n="announcementTwoTitle">Летняя встреча в саду</h3>
+                    <p data-i18n="announcementTwoCopy">В субботу, 22 июня, встречаемся на газоне с соседями.</p>
                 </article>
             </div>
         </section>
 
         <section id="budget" aria-labelledby="budget-title">
-            <h2 id="budget-title">02 / Взносы, бюджет и оплата</h2>
-            <p>Прозрачные расходы года понятные и доступные каждому жильцу.</p>
+            <h2 id="budget-title" data-i18n="budgetTitle">02 / Взносы, бюджет и оплата</h2>
+            <p data-i18n="budgetCopy">Прозрачные расходы года понятные и доступные каждому жильцу.</p>
             <div class="card" style="max-width: 400px;">
-                <h3>Расчётный ежемесячный взнос</h3>
-                <p class="amount">1 890 ₽ / мес.</p>
+                <h3 data-i18n="budgetCardTitle">Расчётный ежемесячный взнос</h3>
+                <p class="amount" data-i18n="budgetAmount">1 890 ₽ / мес.</p>
             </div>
         </section>
 
         <section id="rules" aria-labelledby="rules-title">
-            <h2 id="rules-title">03 / Правила комплекса</h2>
+            <h2 id="rules-title" data-i18n="rulesTitle">03 / Правила комплекса</h2>
             <div class="grid">
                 <article class="card">
-                    <h3>Тихие часы</h3>
-                    <p>22:00–08:00 — соблюдаем общий покой и тишину.</p>
+                    <h3 data-i18n="quietHoursTitle">Тихие часы</h3>
+                    <p data-i18n="quietHoursCopy">22:00–08:00 — соблюдаем общий покой и тишину.</p>
                 </article>
                 <article class="card">
-                    <h3>Общие зоны</h3>
-                    <p>Относитесь бережно к придомовой территории.</p>
+                    <h3 data-i18n="commonAreasTitle">Общие зоны</h3>
+                    <p data-i18n="commonAreasCopy">Относитесь бережно к придомовой территории.</p>
                 </article>
             </div>
         </section>
 
         <section id="amenities" aria-labelledby="amenities-title">
-            <h2 id="amenities-title">04 / Общие удобства</h2>
+            <h2 id="amenities-title" data-i18n="amenitiesTitle">04 / Общие удобства</h2>
             <div class="grid">
                 <article class="card">
-                    <h3>Открытый бассейн</h3>
-                    <p>Часы работы: 08:00–22:00</p>
+                    <h3 data-i18n="poolTitle">Открытый бассейн</h3>
+                    <p data-i18n="poolCopy">Часы работы: 08:00–22:00</p>
                 </article>
                 <article class="card">
-                    <h3>Фитнес-студия</h3>
-                    <p>Часы работы: 06:00–23:00</p>
+                    <h3 data-i18n="fitnessTitle">Фитнес-студия</h3>
+                    <p data-i18n="fitnessCopy">Часы работы: 06:00–23:00</p>
                 </article>
             </div>
         </section>
 
         <section id="contacts" aria-labelledby="contacts-title">
-            <h2 id="contacts-title">05 / Управление и контакты</h2>
-            <p>Свяжитесь с нами по вопросам, предложениям или техническим проблемам.</p>
+            <h2 id="contacts-title" data-i18n="contactsTitle">05 / Управление и контакты</h2>
+            <p data-i18n="contactsCopy">Свяжитесь с нами по вопросам, предложениям или техническим проблемам.</p>
             <div class="card support-card">
-                <h3>Поддержите развитие проекта</h3>
-                <p>Если вам нравится сервис, вы можете отправить чаевые или донат разработчику.</p>
-                <a href="https://pay.cloudtips.ru/p/6ce3fa3d" target="_blank" rel="noopener noreferrer" class="btn">Донат через CloudTips</a>
+                <h3 data-i18n="supportTitle">Поддержите развитие проекта</h3>
+                <p data-i18n="supportCopy">Если вам нравится сервис, вы можете отправить чаевые или донат разработчику.</p>
+                <div class="donation-actions">
+                    <a href="https://buymeacoffee.com" target="_blank" rel="noopener noreferrer" class="btn" data-i18n="buyMeCoffee">Buy Me a Coffee (Карты мира / TR)</a>
+                    <a href="https://cloudtips.ru" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" data-i18n="cloudTips">CloudTips (Карты РФ / СБП)</a>
+                </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>© 2026 Fortuna Parkside. Создадим лучшее общее пространство.</p>
+        <p data-i18n="footerCopy">© 2026 Fortuna Parkside. Создадим лучшее общее пространство.</p>
     </footer>
+    <script>
+        const translations = {
+            tr: {
+                navAnnouncements: "Duyurular",
+                navBudget: "Aidat ve bütçe",
+                navRules: "Site kuralları",
+                navAmenities: "Olanaklar",
+                navContacts: "Yönetim ve iletişim",
+                navLabel: "Ana gezinme",
+                languageLabel: "Dil seçimi",
+                heroTitle: "Huzurlu yaşam, şeffaf yönetim.",
+                heroCopy: "Fortuna Parkside konut kompleksinin web sitesi: sakinler için güncel haberler, bütçe raporları ve olanaklar.",
+                heroButton: "Duyuruları görüntüle ↓",
+                announcementsTitle: "01 / Duyurular ve haberler",
+                announcementOneTitle: "B Blok su tesisatı bakımı",
+                announcementOneCopy: "Planlı bakım çalışmaları 14 Haziran Cuma günü 10:00–14:00 saatleri arasında yapılacaktır.",
+                announcementTwoTitle: "Bahçede yaz buluşması",
+                announcementTwoCopy: "22 Haziran Cumartesi günü komşularımızla çim alanda buluşuyoruz.",
+                budgetTitle: "02 / Aidat, bütçe ve ödeme",
+                budgetCopy: "Yıllık giderler şeffaf, anlaşılır ve her sakin için erişilebilirdir.",
+                budgetCardTitle: "Tahmini aylık aidat",
+                budgetAmount: "1.890 ₽ / ay",
+                rulesTitle: "03 / Site kuralları",
+                quietHoursTitle: "Sessiz saatler",
+                quietHoursCopy: "22:00–08:00 — ortak huzur ve sessizliğe özen gösterin.",
+                commonAreasTitle: "Ortak alanlar",
+                commonAreasCopy: "Lütfen ortak alanları özenle kullanın.",
+                amenitiesTitle: "04 / Ortak olanaklar",
+                poolTitle: "Açık yüzme havuzu",
+                poolCopy: "Çalışma saatleri: 08:00–22:00",
+                fitnessTitle: "Fitness stüdyosu",
+                fitnessCopy: "Çalışma saatleri: 06:00–23:00",
+                contactsTitle: "05 / Yönetim ve iletişim",
+                contactsCopy: "Sorularınız, önerileriniz veya teknik sorunlarınız için bize ulaşın.",
+                supportTitle: "Projeyi destekleyin",
+                supportCopy: "Hizmetimizi beğendiyseniz geliştiriciye bahşiş veya bağış gönderebilirsiniz.",
+                buyMeCoffee: "Buy Me a Coffee (Uluslararası kartlar / TR)",
+                cloudTips: "CloudTips (Rusya kartları / SBP)",
+                footerCopy: "© 2026 Fortuna Parkside. Daha iyi bir ortak yaşam alanı oluşturalım."
+            },
+            ru: {
+                navAnnouncements: "Объявления",
+                navBudget: "Взносы и бюджет",
+                navRules: "Правила комплекса",
+                navAmenities: "Удобства",
+                navContacts: "Управление и контакты",
+                navLabel: "Основная навигация",
+                languageLabel: "Выбор языка",
+                heroTitle: "Спокойная жизнь, прозрачное управление.",
+                heroCopy: "Сайт жилого комплекса Fortuna Parkside: актуальные новости, отчеты по бюджету и удобства для резидентов.",
+                heroButton: "Смотреть объявления ↓",
+                announcementsTitle: "01 / Объявления и новости",
+                announcementOneTitle: "Обслуживание водопровода в блоке B",
+                announcementOneCopy: "Плановые работы пройдут в пятницу, 14 июня, с 10:00 до 14:00.",
+                announcementTwoTitle: "Летняя встреча в саду",
+                announcementTwoCopy: "В субботу, 22 июня, встречаемся на газоне с соседями.",
+                budgetTitle: "02 / Взносы, бюджет и оплата",
+                budgetCopy: "Прозрачные расходы года понятны и доступны каждому жильцу.",
+                budgetCardTitle: "Расчётный ежемесячный взнос",
+                budgetAmount: "1 890 ₽ / мес.",
+                rulesTitle: "03 / Правила комплекса",
+                quietHoursTitle: "Тихие часы",
+                quietHoursCopy: "22:00–08:00 — соблюдаем общий покой и тишину.",
+                commonAreasTitle: "Общие зоны",
+                commonAreasCopy: "Относитесь бережно к придомовой территории.",
+                amenitiesTitle: "04 / Общие удобства",
+                poolTitle: "Открытый бассейн",
+                poolCopy: "Часы работы: 08:00–22:00",
+                fitnessTitle: "Фитнес-студия",
+                fitnessCopy: "Часы работы: 06:00–23:00",
+                contactsTitle: "05 / Управление и контакты",
+                contactsCopy: "Свяжитесь с нами по вопросам, предложениям или техническим проблемам.",
+                supportTitle: "Поддержите развитие проекта",
+                supportCopy: "Если вам нравится сервис, вы можете отправить чаевые или донат разработчику.",
+                buyMeCoffee: "Buy Me a Coffee (Карты мира / TR)",
+                cloudTips: "CloudTips (Карты РФ / СБП)",
+                footerCopy: "© 2026 Fortuna Parkside. Создадим лучшее общее пространство."
+            },
+            en: {
+                navAnnouncements: "Announcements",
+                navBudget: "Fees & budget",
+                navRules: "Community rules",
+                navAmenities: "Amenities",
+                navContacts: "Management & contacts",
+                navLabel: "Main navigation",
+                languageLabel: "Select language",
+                heroTitle: "Peaceful living, transparent management.",
+                heroCopy: "The Fortuna Parkside residential community website: the latest news, budget reports, and resident amenities.",
+                heroButton: "View announcements ↓",
+                announcementsTitle: "01 / Announcements & news",
+                announcementOneTitle: "Water system maintenance in Building B",
+                announcementOneCopy: "Scheduled maintenance will take place Friday, June 14, from 10:00 to 14:00.",
+                announcementTwoTitle: "Summer gathering in the garden",
+                announcementTwoCopy: "Join your neighbors on the lawn on Saturday, June 22.",
+                budgetTitle: "02 / Fees, budget & payments",
+                budgetCopy: "Annual expenses are transparent, clear, and available to every resident.",
+                budgetCardTitle: "Estimated monthly fee",
+                budgetAmount: "₽1,890 / month",
+                rulesTitle: "03 / Community rules",
+                quietHoursTitle: "Quiet hours",
+                quietHoursCopy: "22:00–08:00 — please respect the peace and quiet of the community.",
+                commonAreasTitle: "Shared spaces",
+                commonAreasCopy: "Please take care of the shared grounds.",
+                amenitiesTitle: "04 / Shared amenities",
+                poolTitle: "Outdoor swimming pool",
+                poolCopy: "Hours: 08:00–22:00",
+                fitnessTitle: "Fitness studio",
+                fitnessCopy: "Hours: 06:00–23:00",
+                contactsTitle: "05 / Management & contacts",
+                contactsCopy: "Contact us with questions, suggestions, or technical issues.",
+                supportTitle: "Support the project",
+                supportCopy: "If you enjoy the service, you can send the developer a tip or donation.",
+                buyMeCoffee: "Buy Me a Coffee (International cards / TR)",
+                cloudTips: "CloudTips (Russian cards / SBP)",
+                footerCopy: "© 2026 Fortuna Parkside. Let's create a better shared space."
+            }
+        };
+
+        const languageButtons = document.querySelectorAll("[data-language]");
+        const translatableElements = document.querySelectorAll("[data-i18n]");
+
+        languageButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                const language = button.dataset.language;
+                const languageStrings = translations[language];
+
+                document.documentElement.lang = language;
+                document.querySelector("[data-i18n-nav-label]").setAttribute("aria-label", languageStrings.navLabel);
+                document.querySelector(".language-switch").setAttribute("aria-label", languageStrings.languageLabel);
+                translatableElements.forEach((element) => {
+                    element.textContent = languageStrings[element.dataset.i18n];
+                });
+                languageButtons.forEach((languageButton) => {
+                    languageButton.setAttribute("aria-pressed", String(languageButton === button));
+                });
+            });
+        });
+    </script>
 </body>
 </html>
