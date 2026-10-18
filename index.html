@@ -2,11 +2,179 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=apartments.html">
-    <title>Fortuna Parkside</title>
-    <script>window.location.href = "apartments.html";</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortuna Parkside — Премиальный ЖК в Газипаше</title>
+    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <p>Загрузка портала Fortuna Parkside... <a href="apartments.html">Нажмите сюда</a></p>
+
+    <div class="bg-gradient-orb orb-1"></div>
+    <div class="bg-gradient-orb orb-2"></div>
+    <div class="bg-gradient-orb orb-3"></div>
+
+    <div class="liquid-lens" id="liquidLens">
+        <div class="lens-glow"></div>
+        <span class="lens-label"><i class="fa-solid fa-magnifying-glass"></i> Glassmorphism 3D</span>
+    </div>
+
+    <!-- Шапка сайта -->
+    <header class="glass-header">
+        <div class="logo">
+            <span class="logo-title">FORTUNA</span>
+            <span class="logo-subtitle">Parkside</span>
+        </div>
+        <nav class="nav-links">
+            <a href="#hero" data-i18n="nav_home">Главная</a>
+            <a href="#interactive-floor" data-i18n="nav_plan">План 0-этажа</a>
+            <a href="#gallery" data-i18n="nav_gallery">Галерея</a>
+            <a href="apartments.html" data-i18n="nav_catalog">Квартиры</a>
+        </nav>
+        <div class="header-actions">
+            <button class="btn btn-secondary" onclick="openModal('modalSubmit')"><i class="fa-solid fa-plus"></i> <span data-i18n="btn_add">Разместить объявление</span></button>
+            <button class="btn btn-primary" onclick="openModal('modalBuy')"><i class="fa-solid fa-key"></i> <span data-i18n="btn_buy">Купить квартиру</span></button>
+
+            <!-- Переключатель языков -->
+            <div class="lang-switcher">
+                <button onclick="setLanguage('tr')" id="lang-tr" class="lang-btn">TR</button>
+                <button onclick="setLanguage('ru')" id="lang-ru" class="lang-btn active">RU</button>
+                <button onclick="setLanguage('en')" id="lang-en" class="lang-btn">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Главный экран -->
+    <section id="hero" class="hero-section">
+        <div class="hero-card glass-panel">
+            <div class="badge"><i class="fa-solid fa-location-dot"></i> Gazipaşa, Antalya</div>
+            <h1 data-i18n="hero_title">Fortuna Parkside</h1>
+            <p class="address-text">Hacı Musa Cd. 68/1, 07900 Gazipaşa / Antalya, Türkiye</p>
+            <p class="hero-desc" data-i18n="hero_desc">Премиальный жилой комплекс с бассейном, сауной, панорамным фитнес-центром и закрытой благоустроенной территорией у моря.</p>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-value">5</span>
+                    <span class="stat-label" data-i18n="stat_floors">Этажей</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">0</span>
+                    <span class="stat-label" data-i18n="stat_spa">Этаж SPA &amp; Фитнеса</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value"><i class="fa-solid fa-person-swimming"></i></span>
+                    <span class="stat-label" data-i18n="stat_pool">Бассейн и Парк</span>
+                </div>
+            </div>
+
+            <div class="hero-buttons">
+                <a href="#interactive-floor" class="btn btn-primary btn-large"><i class="fa-solid fa-door-open"></i> <span data-i18n="btn_enter">Зайти внутрь дома</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция: Интерактивный план 0-го этажа -->
+    <section id="interactive-floor" class="section-container">
+        <div class="section-header">
+            <h2 data-i18n="floor_heading">Интерактивный навигатор: 0-й Этаж</h2>
+            <p data-i18n="floor_sub">Нажмите на любую зону плана, чтобы совершить виртуальный осмотр</p>
+        </div>
+
+        <div class="floor-plan-wrapper glass-panel">
+            <div class="floor-grid">
+                <div class="plan-zone entrance" onclick="showZoneDetails('entrance')">
+                    <div class="zone-icon"><i class="fa-solid fa-door-open"></i></div>
+                    <div class="zone-name" data-i18n="z_entrance">Главный вход</div>
+                </div>
+                <div class="plan-zone elevators" onclick="showZoneDetails('elevators')">
+                    <div class="zone-icon"><i class="fa-solid fa-elevator"></i></div>
+                    <div class="zone-name" data-i18n="z_elevators">2 Лифта (1-5 эт)</div>
+                </div>
+                <div class="plan-zone infostand" onclick="showZoneDetails('infostand')">
+                    <div class="zone-icon"><i class="fa-solid fa-circle-info"></i></div>
+                    <div class="zone-name" data-i18n="z_infostand">Инфо-стенд</div>
+                </div>
+                <div class="plan-zone stairs" onclick="showZoneDetails('stairs')">
+                    <div class="zone-icon"><i class="fa-solid fa-stairs"></i></div>
+                    <div class="zone-name" data-i18n="z_stairs">Лестница наверх</div>
+                </div>
+                <div class="plan-zone lounge" onclick="showZoneDetails('lounge')">
+                    <div class="zone-icon"><i class="fa-solid fa-couch"></i></div>
+                    <div class="zone-name" data-i18n="z_lounge">Холл &amp; Зона отдыха</div>
+                </div>
+                <div class="plan-zone sauna" onclick="showZoneDetails('sauna')">
+                    <div class="zone-icon"><i class="fa-solid fa-hot-tub-person"></i></div>
+                    <div class="zone-name" data-i18n="z_sauna">Финская Сауна</div>
+                </div>
+                <div class="plan-zone corridor" onclick="showZoneDetails('gym')">
+                    <div class="zone-icon"><i class="fa-solid fa-arrow-right-long"></i></div>
+                    <div class="zone-name" data-i18n="z_corridor">Проход в спортзал</div>
+                </div>
+                <div class="plan-zone gym-zone" onclick="showZoneDetails('gym')">
+                    <div class="zone-icon"><i class="fa-solid fa-dumbbell"></i></div>
+                    <div class="zone-name" data-i18n="z_gym">Панорамный Фитнес-зал</div>
+                </div>
+            </div>
+
+            <div class="zone-info-card glass-panel" id="zoneInfoCard">
+                <h3 id="zoneTitle" data-i18n="zone_default_title">Выберите объект на схеме</h3>
+                <p id="zoneDesc" data-i18n="zone_default_desc">Кликните по любой зоне 0-го этажа, чтобы посмотреть фотографии и описание оборудования.</p>
+                <div id="zoneImageContainer"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция: Галерея фотографий комплекса -->
+    <section id="gallery" class="section-container">
+        <div class="section-header">
+            <h2 data-i18n="gallery_title">Галерея Fortuna Parkside</h2>
+            <p data-i18n="gallery_sub">Визуальный тур по территории, резиденции и удобствам комплекса</p>
+        </div>
+
+        <div class="glass-gallery-grid">
+            <div class="glass-photo-card">
+                <div class="photo-wrapper">
+                    <img src="photo1.jpg" alt="Бассейн" loading="lazy">
+                    <div class="photo-overlay">
+                        <span class="photo-badge">01 / Вода</span>
+                        <h3>Бассейн и лаунж-зона</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="glass-photo-card">
+                <div class="photo-wrapper">
+                    <img src="photo2.jpg" alt="SPA" loading="lazy">
+                    <div class="photo-overlay">
+                        <span class="photo-badge">02 / Баланс</span>
+                        <h3>SPA &amp; Сауна</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="glass-photo-card">
+                <div class="photo-wrapper">
+                    <img src="photo3.jpg" alt="Фитнес" loading="lazy">
+                    <div class="photo-overlay">
+                        <span class="photo-badge">03 / Энергия</span>
+                        <h3>Панорамный фитнес</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция: Поддержка и донаты -->
+    <section class="section-container">
+        <div class="glass-panel donate-box">
+            <h3 data-i18n="donate_title">Поддержите развитие проекта</h3>
+            <p data-i18n="donate_desc">Если вам нравится сервис, вы можете отправить чаевые или донат разработчику.</p>
+
+            <div class="donate-buttons">
+                <a href="https://pay.cloudtips.ru/p/6ce3fa3d" target="_blank" rel="noopener noreferrer" class="btn btn-donate-cloudtips">
+                    <i class="fa-solid fa-credit-card"></i> CloudTips (Карты РФ / СБП)
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script src="app.js?v=3"></script>
 </body>
 </html>
