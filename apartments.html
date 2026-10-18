@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101413">
+    <meta name="description" content="Fortuna Parkside — жилой комплекс у моря в Газипаше. Изучите территорию, удобства и варианты квартир.">
+    <title>Fortuna Parkside — квартиры в Газипаше</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <a class="brand" href="apartments.html" aria-label="Fortuna Parkside — главная">
+            <span class="brand-name">FORTUNA</span>
+            <span class="brand-subtitle">Parkside</span>
+        </a>
+        <nav class="main-nav" aria-label="Основная навигация">
+            <a href="#interactive-floor">0-й этаж</a>
+            <a href="#territory">Территория</a>
+            <a href="#catalog">Квартиры</a>
+        </nav>
+        <div class="header-actions">
+            <button class="button button-quiet" type="button" data-dialog="listing-dialog">Разместить объявление</button>
+            <a class="button button-primary" href="#catalog">Подобрать квартиру <span aria-hidden="true">↗</span></a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="hero" aria-labelledby="hero-title">
+            <div class="hero-copy glass-panel">
+                <p class="eyebrow"><span class="eyebrow-dot"></span> Gazipaşa · Antalya · Türkiye</p>
+                <h1 id="hero-title">Fortuna<br><span>Parkside</span></h1>
+                <a class="address" href="https://maps.google.com/?q=Hac%C4%B1+Musa+Cd.+68%2F1%2C+Gazipa%C5%9Fa%2C+Antalya%2C+T%C3%BCrkiye" target="_blank" rel="noopener noreferrer">
+                    Hacı Musa Cd. 68/1, 07900 Gazipaşa / Antalya <span aria-hidden="true">↗</span>
+                </a>
+                <p class="hero-description">Премиальный жилой комплекс у моря с бассейном, сауной, панорамным фитнес-центром и закрытой благоустроенной территорией.</p>
+                <div class="hero-facts" aria-label="Особенности комплекса">
+                    <div class="fact"><span class="fact-value">5</span><span class="fact-label">этажей</span></div>
+                    <div class="fact"><span class="fact-value">0</span><span class="fact-label">SPA &amp; Gym floor</span></div>
+                    <div class="fact"><span class="fact-value">∞</span><span class="fact-label">место для отдыха</span></div>
+                </div>
+                <a class="button button-primary button-large" href="#interactive-floor">Исследовать комплекс <span aria-hidden="true">↓</span></a>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+                <div class="sun-disc"></div>
+                <div class="art-horizon"></div>
+                <div class="building building-back"></div>
+                <div class="building building-front">
+                    <span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span>
+                </div>
+                <div class="art-caption"><span>36°16' N</span><span>Gazipaşa, Türkiye</span></div>
+            </div>
+        </section>
+
+        <section class="section floor-section" id="interactive-floor" aria-labelledby="floor-title">
+            <div class="section-heading">
+                <p class="eyebrow">Пространство для жизни</p>
+                <h2 id="floor-title">Интерактивный навигатор: 0-й этаж</h2>
+                <p>Выберите зону, чтобы узнать больше о пространствах комплекса.</p>
+            </div>
+            <div class="floor-layout glass-panel">
+                <div class="floor-plan" role="group" aria-label="Зоны схематичного плана 0-го этажа">
+                    <button class="plan-zone zone-entrance is-selected" type="button" data-zone="entrance" aria-pressed="true">
+                        <span class="zone-symbol" aria-hidden="true">↗</span><span>Главный вход</span>
+                    </button>
+                    <button class="plan-zone zone-lobby" type="button" data-zone="lobby" aria-pressed="false">
+                        <span class="zone-symbol" aria-hidden="true">◇</span><span>Холл</span>
+                    </button>
+                    <button class="plan-zone zone-elevators" type="button" data-zone="elevators" aria-pressed="false">
+                        <span class="zone-symbol" aria-hidden="true">⇵</span><span>Лифты · 1–5 этажи</span>
+                    </button>
+                    <button class="plan-zone zone-spa" type="button" data-zone="spa" aria-pressed="false">
+                        <span class="zone-symbol" aria-hidden="true">≈</span><span>SPA и сауна</span>
+                    </button>
+                    <button class="plan-zone zone-fitness" type="button" data-zone="fitness" aria-pressed="false">
+                        <span class="zone-symbol" aria-hidden="true">⌁</span><span>Фитнес-зал</span>
+                    </button>
+                    <button class="plan-zone zone-pool" type="button" data-zone="pool" aria-pressed="false">
+                        <span class="zone-symbol" aria-hidden="true">◌</span><span>Бассейн</span>
+                    </button>
+                    <button class="plan-zone zone-garden" type="button" data-zone="garden" aria-pressed="false">
+                        <span class="zone-symbol" aria-hidden="true">✳</span><span>Сад и отдых</span>
+                    </button>
+                </div>
+                <aside class="zone-details" aria-live="polite" aria-atomic="true">
+                    <p class="eyebrow">Выбранная зона</p>
+                    <span class="detail-index" id="zone-index">01</span>
+                    <h3 id="zone-title">Главный вход</h3>
+                    <p id="zone-description">Пространство, с которого начинается знакомство с Fortuna Parkside.</p>
+                    <p class="plan-note">Схема иллюстративная и не является техническим планом помещений.</p>
+                </aside>
+            </div>
+        </section>
+
+        <section class="section territory-section" id="territory" aria-labelledby="territory-title">
+            <div class="section-heading">
+                <p class="eyebrow">Всё необходимое рядом</p>
+                <h2 id="territory-title">Территория для отдыха и движения</h2>
+                <p>Общие пространства комплекса созданы, чтобы отдыхать, заботиться о себе и проводить время на свежем воздухе.</p>
+            </div>
+            <div class="amenity-grid">
+                <article class="amenity-card amenity-pool">
+                    <span class="amenity-number">01 / Вода</span>
+                    <span class="amenity-mark" aria-hidden="true">≈</span>
+                    <h3>Бассейн</h3>
+                    <p>Освежитесь и отдохните у воды в тёплые дни.</p>
+                </article>
+                <article class="amenity-card amenity-wellness">
+                    <span class="amenity-number">02 / Баланс</span>
+                    <span class="amenity-mark" aria-hidden="true">⌁</span>
+                    <h3>SPA и сауна</h3>
+                    <p>Зона восстановления и спокойного отдыха.</p>
+                </article>
+                <article class="amenity-card amenity-fitness">
+                    <span class="amenity-number">03 / Энергия</span>
+                    <span class="amenity-mark" aria-hidden="true">✳</span>
+                    <h3>Панорамный фитнес</h3>
+                    <p>Тренировки с естественным светом и видом на окрестности.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section catalog-section" id="catalog" aria-labelledby="catalog-title">
+            <div class="catalog-panel glass-panel">
+                <div class="catalog-copy">
+                    <p class="eyebrow">Найдите своё пространство</p>
+                    <h2 id="catalog-title">Квартира у моря начинается с правильного выбора</h2>
+                    <p>Расскажите, что для вас важно, — мы поможем сориентироваться по доступным вариантам.</p>
+                    <button class="button button-primary" type="button" data-dialog="buy-dialog">Запросить информацию <span aria-hidden="true">↗</span></button>
+                </div>
+                <div class="catalog-orbit" aria-hidden="true"><span>F</span></div>
+            </div>
+            <p class="availability-note">Планировки, цены и наличие уточняйте перед покупкой.</p>
+        </section>
+
+        <section class="section donation-section" aria-labelledby="donation-title">
+            <div class="donate-box glass-panel">
+                <p class="eyebrow">Спасибо за поддержку</p>
+                <h2 id="donation-title">Поддержите развитие проекта</h2>
+                <p>Если вам нравится сервис, вы можете отправить чаевые или донат разработчику.</p>
+                <div class="donate-buttons">
+                    <a href="https://buymeacoffee.com/egorgazip2wb" target="_blank" rel="noopener noreferrer" class="button button-primary">
+                        <i class="fa-solid fa-mug-hot" aria-hidden="true"></i> Buy Me a Coffee (Карты мира / TR)
+                    </a>
+                    <a href="https://pay.cloudtips.ru/p/6ce3fa3d" target="_blank" rel="noopener noreferrer" class="button button-quiet">
+                        <i class="fa-solid fa-credit-card" aria-hidden="true"></i> CloudTips (Карты РФ / СБП)
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <a class="brand" href="apartments.html" aria-label="Fortuna Parkside — главная">
+            <span class="brand-name">FORTUNA</span><span class="brand-subtitle">Parkside</span>
+        </a>
+        <span>Gazipaşa, Antalya · Türkiye</span>
+        <a href="index.html">Кабинет жителей <span aria-hidden="true">↗</span></a>
+    </footer>
+
+    <dialog class="info-dialog" id="buy-dialog" aria-labelledby="buy-dialog-title">
+        <form method="dialog"><button class="dialog-close" aria-label="Закрыть окно">×</button></form>
+        <p class="eyebrow">Fortuna Parkside</p>
+        <h2 id="buy-dialog-title">Информация о квартирах</h2>
+        <p>Свяжитесь с представителем комплекса, чтобы уточнить актуальные планировки, цены и наличие. Контактные данные можно добавить, когда они будут предоставлены.</p>
+        <a class="button button-primary" href="#catalog" data-close-dialog>Вернуться к квартирам</a>
+    </dialog>
+
+    <dialog class="info-dialog" id="listing-dialog" aria-labelledby="listing-dialog-title">
+        <form method="dialog"><button class="dialog-close" aria-label="Закрыть окно">×</button></form>
+        <p class="eyebrow">Для собственников</p>
+        <h2 id="listing-dialog-title">Размещение объявления</h2>
+        <p>Публикация объявлений на сайте пока не подключена. Этот раздел можно связать с формой размещения, когда будет выбран способ приёма заявок.</p>
+        <form method="dialog"><button class="button button-primary">Понятно</button></form>
+    </dialog>
+    <script src="apartments.js" defer></script>
+</body>
+</html>
