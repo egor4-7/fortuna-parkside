@@ -1180,7 +1180,9 @@ p {
     display: inline-flex;
     flex: 0 0 auto;
     flex-direction: column;
+    color: inherit;
     line-height: 1;
+    text-decoration: none;
 }
 
 .logo-title {
@@ -1211,6 +1213,10 @@ p {
 }
 
 .nav-links a:hover {
+    color: var(--accent);
+}
+
+.nav-links a.active {
     color: var(--accent);
 }
 
@@ -1372,6 +1378,20 @@ p {
     font-size: 11px;
 }
 
+.hero-features-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 20px;
+    margin-bottom: 28px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.hero-features-list strong,
+.hero-features-list i {
+    color: var(--accent);
+}
+
 .hero-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -1400,6 +1420,14 @@ p {
     margin-bottom: 0;
     color: var(--muted);
     font-size: 14px;
+}
+
+.section-header .section-subtitle {
+    margin-bottom: 9px;
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
 }
 
 .floor-plan-wrapper {
@@ -1460,6 +1488,13 @@ p {
     margin: 8px 0;
     font-size: 26px;
     letter-spacing: -0.03em;
+}
+
+.info-tag {
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
 }
 
 .zone-info-card p {
@@ -1595,6 +1630,11 @@ p {
 
     .hero-desc {
         font-size: 14px;
+    }
+
+    .hero-features-list {
+        gap: 10px 14px;
+        font-size: 12px;
     }
 
     .hero-stats {
