@@ -5,27 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#101413">
     <meta name="description" content="Fortuna Parkside — жилой комплекс у моря в Газипаше. Изучите территорию, удобства и варианты квартир.">
-    <title>Fortuna Parkside — квартиры в Газипаше</title>
+    <title data-i18n="page_title">Fortuna Parkside — квартиры в Газипаше</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="ambient ambient-one" aria-hidden="true"></div>
     <div class="ambient ambient-two" aria-hidden="true"></div>
+    <div class="ambient ambient-three" aria-hidden="true"></div>
+    <div class="liquid-lens" id="liquidLens" aria-hidden="true">
+        <div class="lens-glow"></div>
+        <span class="lens-label"><i class="fa-solid fa-magnifying-glass"></i> Glassmorphism 3D</span>
+    </div>
 
     <header class="site-header">
-        <a class="brand" href="apartments.html" aria-label="Fortuna Parkside — главная">
+        <a class="brand" href="apartments.html" aria-label="Fortuna Parkside — главная" data-i18n-aria-label="brand_label">
             <span class="brand-name">FORTUNA</span>
             <span class="brand-subtitle">Parkside</span>
         </a>
-        <nav class="main-nav" aria-label="Основная навигация">
-            <a href="#interactive-floor">0-й этаж</a>
-            <a href="#territory">Территория</a>
-            <a href="#catalog">Квартиры</a>
+        <nav class="main-nav" aria-label="Основная навигация" data-i18n-aria-label="nav_label">
+            <a href="#hero" data-i18n="nav_home">Главная</a>
+            <a href="#interactive-floor" data-i18n="nav_plan">План 0-го этажа</a>
+            <a href="#territory" data-i18n="nav_territory">Территория</a>
+            <a href="#catalog" data-i18n="nav_catalog">Квартиры</a>
         </nav>
         <div class="header-actions">
-            <button class="button button-quiet" type="button" data-dialog="listing-dialog">Разместить объявление</button>
-            <a class="button button-primary" href="#catalog">Подобрать квартиру <span aria-hidden="true">↗</span></a>
+            <button class="button button-quiet" type="button" data-dialog="listing-dialog"><span data-i18n="btn_add">Разместить объявление</span></button>
+            <a class="button button-primary" href="#catalog"><span data-i18n="btn_buy">Купить квартиру</span> <span aria-hidden="true">↗</span></a>
+            <div class="language-switch" role="group" aria-label="Выбор языка" data-i18n-aria-label="language_label">
+                <button type="button" lang="tr" data-language="tr" aria-pressed="false">TR</button>
+                <button type="button" lang="ru" data-language="ru" aria-pressed="true">RU</button>
+                <button type="button" lang="en" data-language="en" aria-pressed="false">EN</button>
+            </div>
         </div>
     </header>
 
@@ -37,13 +48,13 @@
                 <a class="address" href="https://maps.google.com/?q=Hac%C4%B1+Musa+Cd.+68%2F1%2C+Gazipa%C5%9Fa%2C+Antalya%2C+T%C3%BCrkiye" target="_blank" rel="noopener noreferrer">
                     Hacı Musa Cd. 68/1, 07900 Gazipaşa / Antalya <span aria-hidden="true">↗</span>
                 </a>
-                <p class="hero-description">Премиальный жилой комплекс у моря с бассейном, сауной, панорамным фитнес-центром и закрытой благоустроенной территорией.</p>
-                <div class="hero-facts" aria-label="Особенности комплекса">
-                    <div class="fact"><span class="fact-value">5</span><span class="fact-label">этажей</span></div>
-                    <div class="fact"><span class="fact-value">0</span><span class="fact-label">SPA &amp; Gym floor</span></div>
-                    <div class="fact"><span class="fact-value">∞</span><span class="fact-label">место для отдыха</span></div>
+                <p class="hero-description" data-i18n="hero_desc">Премиальный жилой комплекс с бассейном, сауной, панорамным фитнес-центром и закрытой благоустроенной территорией у моря.</p>
+                <div class="hero-facts" aria-label="Особенности комплекса" data-i18n-aria-label="facts_label">
+                    <div class="fact"><span class="fact-value">5</span><span class="fact-label" data-i18n="stat_floors">Этажей</span></div>
+                    <div class="fact"><span class="fact-value">0</span><span class="fact-label" data-i18n="stat_spa">SPA &amp; Gym Floor</span></div>
+                    <div class="fact"><span class="fact-value"><i class="fa-solid fa-person-swimming" aria-hidden="true"></i></span><span class="fact-label" data-i18n="stat_pool">Бассейн и парк</span></div>
                 </div>
-                <a class="button button-primary button-large" href="#interactive-floor">Исследовать комплекс <span aria-hidden="true">↓</span></a>
+                <a class="button button-primary button-large" href="#interactive-floor"><span data-i18n="btn_enter">Зайти внутрь дома</span> <span aria-hidden="true">↓</span></a>
             </div>
             <div class="hero-art" aria-hidden="true">
                 <div class="sun-disc"></div>
@@ -60,68 +71,71 @@
 
         <section class="section floor-section" id="interactive-floor" aria-labelledby="floor-title">
             <div class="section-heading">
-                <p class="eyebrow">Пространство для жизни</p>
-                <h2 id="floor-title">Интерактивный навигатор: 0-й этаж</h2>
-                <p>Выберите зону, чтобы узнать больше о пространствах комплекса.</p>
+                <p class="eyebrow" data-i18n="floor_eyebrow">Пространство для жизни</p>
+                <h2 id="floor-title" data-i18n="floor_heading">Интерактивный навигатор: 0-й этаж</h2>
+                <p data-i18n="floor_sub">Нажмите на любую зону плана, чтобы совершить виртуальный осмотр</p>
             </div>
             <div class="floor-layout glass-panel">
-                <div class="floor-plan" role="group" aria-label="Зоны схематичного плана 0-го этажа">
-                    <button class="plan-zone zone-entrance is-selected" type="button" data-zone="entrance" aria-pressed="true">
-                        <span class="zone-symbol" aria-hidden="true">↗</span><span>Главный вход</span>
+                <div class="floor-plan" role="group" aria-label="Зоны схематичного плана 0-го этажа" data-i18n-aria-label="plan_label">
+                    <button class="plan-zone is-selected" type="button" data-zone="entrance" aria-pressed="true">
+                        <span class="zone-symbol" aria-hidden="true"><i class="fa-solid fa-door-open"></i></span><span data-i18n="z_entrance">Главный вход</span>
                     </button>
-                    <button class="plan-zone zone-lobby" type="button" data-zone="lobby" aria-pressed="false">
-                        <span class="zone-symbol" aria-hidden="true">◇</span><span>Холл</span>
+                    <button class="plan-zone" type="button" data-zone="elevators" aria-pressed="false">
+                        <span class="zone-symbol" aria-hidden="true"><i class="fa-solid fa-elevator"></i></span><span data-i18n="z_elevators">2 лифта (1–5 эт.)</span>
                     </button>
-                    <button class="plan-zone zone-elevators" type="button" data-zone="elevators" aria-pressed="false">
-                        <span class="zone-symbol" aria-hidden="true">⇵</span><span>Лифты · 1–5 этажи</span>
+                    <button class="plan-zone" type="button" data-zone="infostand" aria-pressed="false">
+                        <span class="zone-symbol" aria-hidden="true"><i class="fa-solid fa-circle-info"></i></span><span data-i18n="z_infostand">Инфо-стенд</span>
                     </button>
-                    <button class="plan-zone zone-spa" type="button" data-zone="spa" aria-pressed="false">
-                        <span class="zone-symbol" aria-hidden="true">≈</span><span>SPA и сауна</span>
+                    <button class="plan-zone" type="button" data-zone="stairs" aria-pressed="false">
+                        <span class="zone-symbol" aria-hidden="true"><i class="fa-solid fa-stairs"></i></span><span data-i18n="z_stairs">Лестница наверх</span>
                     </button>
-                    <button class="plan-zone zone-fitness" type="button" data-zone="fitness" aria-pressed="false">
-                        <span class="zone-symbol" aria-hidden="true">⌁</span><span>Фитнес-зал</span>
+                    <button class="plan-zone" type="button" data-zone="lounge" aria-pressed="false">
+                        <span class="zone-symbol" aria-hidden="true"><i class="fa-solid fa-couch"></i></span><span data-i18n="z_lounge">Холл и зона отдыха</span>
                     </button>
-                    <button class="plan-zone zone-pool" type="button" data-zone="pool" aria-pressed="false">
-                        <span class="zone-symbol" aria-hidden="true">◌</span><span>Бассейн</span>
+                    <button class="plan-zone" type="button" data-zone="sauna" aria-pressed="false">
+                        <span class="zone-symbol" aria-hidden="true"><i class="fa-solid fa-hot-tub-person"></i></span><span data-i18n="z_sauna">Финская сауна</span>
                     </button>
-                    <button class="plan-zone zone-garden" type="button" data-zone="garden" aria-pressed="false">
-                        <span class="zone-symbol" aria-hidden="true">✳</span><span>Сад и отдых</span>
+                    <button class="plan-zone" type="button" data-zone="corridor" aria-pressed="false">
+                        <span class="zone-symbol" aria-hidden="true"><i class="fa-solid fa-arrow-right-long"></i></span><span data-i18n="z_corridor">Проход в спортзал</span>
+                    </button>
+                    <button class="plan-zone" type="button" data-zone="gym" aria-pressed="false">
+                        <span class="zone-symbol" aria-hidden="true"><i class="fa-solid fa-dumbbell"></i></span><span data-i18n="z_gym">Панорамный фитнес-зал</span>
                     </button>
                 </div>
                 <aside class="zone-details" aria-live="polite" aria-atomic="true">
-                    <p class="eyebrow">Выбранная зона</p>
+                    <p class="eyebrow" data-i18n="zone_selected">Выбранная зона</p>
                     <span class="detail-index" id="zone-index">01</span>
-                    <h3 id="zone-title">Главный вход</h3>
-                    <p id="zone-description">Пространство, с которого начинается знакомство с Fortuna Parkside.</p>
-                    <p class="plan-note">Схема иллюстративная и не является техническим планом помещений.</p>
+                    <h3 id="zone-title" data-i18n="zone_default_title">Выберите объект на схеме</h3>
+                    <p id="zone-description" data-i18n="zone_default_desc">Кликните по любой зоне 0-го этажа, чтобы посмотреть описание.</p>
+                    <p class="plan-note" data-i18n="plan_note">Схема иллюстративная и не является техническим планом помещений.</p>
                 </aside>
             </div>
         </section>
 
         <section class="section territory-section" id="territory" aria-labelledby="territory-title">
             <div class="section-heading">
-                <p class="eyebrow">Всё необходимое рядом</p>
-                <h2 id="territory-title">Территория для отдыха и движения</h2>
-                <p>Общие пространства комплекса созданы, чтобы отдыхать, заботиться о себе и проводить время на свежем воздухе.</p>
+                <p class="eyebrow" data-i18n="territory_eyebrow">Всё необходимое рядом</p>
+                <h2 id="territory-title" data-i18n="territory_title">Территория для отдыха и движения</h2>
+                <p data-i18n="territory_desc">Общие пространства комплекса созданы, чтобы отдыхать, заботиться о себе и проводить время на свежем воздухе.</p>
             </div>
             <div class="amenity-grid">
                 <article class="amenity-card amenity-pool">
-                    <span class="amenity-number">01 / Вода</span>
+                    <span class="amenity-number" data-i18n="amenity_pool_number">01 / Вода</span>
                     <span class="amenity-mark" aria-hidden="true">≈</span>
-                    <h3>Бассейн</h3>
-                    <p>Освежитесь и отдохните у воды в тёплые дни.</p>
+                    <h3 data-i18n="amenity_pool_title">Бассейн</h3>
+                    <p data-i18n="amenity_pool_desc">Освежитесь и отдохните у воды в тёплые дни.</p>
                 </article>
                 <article class="amenity-card amenity-wellness">
-                    <span class="amenity-number">02 / Баланс</span>
+                    <span class="amenity-number" data-i18n="amenity_spa_number">02 / Баланс</span>
                     <span class="amenity-mark" aria-hidden="true">⌁</span>
-                    <h3>SPA и сауна</h3>
-                    <p>Зона восстановления и спокойного отдыха.</p>
+                    <h3 data-i18n="amenity_spa_title">SPA и сауна</h3>
+                    <p data-i18n="amenity_spa_desc">Зона восстановления и спокойного отдыха.</p>
                 </article>
                 <article class="amenity-card amenity-fitness">
-                    <span class="amenity-number">03 / Энергия</span>
+                    <span class="amenity-number" data-i18n="amenity_gym_number">03 / Энергия</span>
                     <span class="amenity-mark" aria-hidden="true">✳</span>
-                    <h3>Панорамный фитнес</h3>
-                    <p>Тренировки с естественным светом и видом на окрестности.</p>
+                    <h3 data-i18n="amenity_gym_title">Панорамный фитнес</h3>
+                    <p data-i18n="amenity_gym_desc">Тренировки с естественным светом и видом на окрестности.</p>
                 </article>
             </div>
         </section>
@@ -129,27 +143,27 @@
         <section class="section catalog-section" id="catalog" aria-labelledby="catalog-title">
             <div class="catalog-panel glass-panel">
                 <div class="catalog-copy">
-                    <p class="eyebrow">Найдите своё пространство</p>
-                    <h2 id="catalog-title">Квартира у моря начинается с правильного выбора</h2>
-                    <p>Расскажите, что для вас важно, — мы поможем сориентироваться по доступным вариантам.</p>
-                    <button class="button button-primary" type="button" data-dialog="buy-dialog">Запросить информацию <span aria-hidden="true">↗</span></button>
+                    <p class="eyebrow" data-i18n="catalog_eyebrow">Найдите своё пространство</p>
+                    <h2 id="catalog-title" data-i18n="catalog_title">Квартира у моря начинается с правильного выбора</h2>
+                    <p data-i18n="catalog_desc">Расскажите, что для вас важно, — мы поможем сориентироваться по доступным вариантам.</p>
+                    <button class="button button-primary" type="button" data-dialog="buy-dialog"><span data-i18n="catalog_button">Запросить информацию</span> <span aria-hidden="true">↗</span></button>
                 </div>
                 <div class="catalog-orbit" aria-hidden="true"><span>F</span></div>
             </div>
-            <p class="availability-note">Планировки, цены и наличие уточняйте перед покупкой.</p>
+            <p class="availability-note" data-i18n="availability_note">Планировки, цены и наличие уточняйте перед покупкой.</p>
         </section>
 
         <section class="section donation-section" aria-labelledby="donation-title">
             <div class="donate-box glass-panel">
-                <p class="eyebrow">Спасибо за поддержку</p>
-                <h2 id="donation-title">Поддержите развитие проекта</h2>
-                <p>Если вам нравится сервис, вы можете отправить чаевые или донат разработчику.</p>
+                <p class="eyebrow" data-i18n="donate_eyebrow">Спасибо за поддержку</p>
+                <h2 id="donation-title" data-i18n="donate_title">Поддержите развитие проекта</h2>
+                <p data-i18n="donate_desc">Если вам нравится сервис, вы можете отправить чаевые или донат разработчику.</p>
                 <div class="donate-buttons">
                     <a href="https://buymeacoffee.com/egorgazip2wb" target="_blank" rel="noopener noreferrer" class="button button-primary">
-                        <i class="fa-solid fa-mug-hot" aria-hidden="true"></i> Buy Me a Coffee (Карты мира / TR)
+                        <i class="fa-solid fa-mug-hot" aria-hidden="true"></i> <span data-i18n="donate_coffee">Buy Me a Coffee (Карты мира / TR)</span>
                     </a>
                     <a href="https://pay.cloudtips.ru/p/6ce3fa3d" target="_blank" rel="noopener noreferrer" class="button button-quiet">
-                        <i class="fa-solid fa-credit-card" aria-hidden="true"></i> CloudTips (Карты РФ / СБП)
+                        <i class="fa-solid fa-credit-card" aria-hidden="true"></i> <span data-i18n="donate_cloudtips">CloudTips (Карты РФ / СБП)</span>
                     </a>
                 </div>
             </div>
@@ -157,27 +171,27 @@
     </main>
 
     <footer class="site-footer">
-        <a class="brand" href="apartments.html" aria-label="Fortuna Parkside — главная">
+        <a class="brand" href="apartments.html" aria-label="Fortuna Parkside — главная" data-i18n-aria-label="brand_label">
             <span class="brand-name">FORTUNA</span><span class="brand-subtitle">Parkside</span>
         </a>
         <span>Gazipaşa, Antalya · Türkiye</span>
-        <a href="index.html">Кабинет жителей <span aria-hidden="true">↗</span></a>
+        <a href="index.html"><span data-i18n="footer_residents">Кабинет жителей</span> <span aria-hidden="true">↗</span></a>
     </footer>
 
     <dialog class="info-dialog" id="buy-dialog" aria-labelledby="buy-dialog-title">
-        <form method="dialog"><button class="dialog-close" aria-label="Закрыть окно">×</button></form>
-        <p class="eyebrow">Fortuna Parkside</p>
-        <h2 id="buy-dialog-title">Информация о квартирах</h2>
-        <p>Свяжитесь с представителем комплекса, чтобы уточнить актуальные планировки, цены и наличие. Контактные данные можно добавить, когда они будут предоставлены.</p>
-        <a class="button button-primary" href="#catalog" data-close-dialog>Вернуться к квартирам</a>
+        <form method="dialog"><button class="dialog-close" aria-label="Закрыть окно" data-i18n-aria-label="close_label">×</button></form>
+        <p class="eyebrow" data-i18n="dialog_brand">Fortuna Parkside</p>
+        <h2 id="buy-dialog-title" data-i18n="buy_dialog_title">Информация о квартирах</h2>
+        <p data-i18n="buy_dialog_desc">Свяжитесь с представителем комплекса, чтобы уточнить актуальные планировки, цены и наличие. Контактные данные можно добавить, когда они будут предоставлены.</p>
+        <a class="button button-primary" href="#catalog" data-close-dialog data-i18n="dialog_return">Вернуться к квартирам</a>
     </dialog>
 
     <dialog class="info-dialog" id="listing-dialog" aria-labelledby="listing-dialog-title">
-        <form method="dialog"><button class="dialog-close" aria-label="Закрыть окно">×</button></form>
-        <p class="eyebrow">Для собственников</p>
-        <h2 id="listing-dialog-title">Размещение объявления</h2>
-        <p>Публикация объявлений на сайте пока не подключена. Этот раздел можно связать с формой размещения, когда будет выбран способ приёма заявок.</p>
-        <form method="dialog"><button class="button button-primary">Понятно</button></form>
+        <form method="dialog"><button class="dialog-close" aria-label="Закрыть окно" data-i18n-aria-label="close_label">×</button></form>
+        <p class="eyebrow" data-i18n="listing_eyebrow">Для собственников</p>
+        <h2 id="listing-dialog-title" data-i18n="listing_title">Размещение объявления</h2>
+        <p data-i18n="listing_desc">Публикация объявлений на сайте пока не подключена. Этот раздел можно связать с формой размещения, когда будет выбран способ приёма заявок.</p>
+        <form method="dialog"><button class="button button-primary" data-i18n="dialog_ok">Понятно</button></form>
     </dialog>
     <script src="apartments.js" defer></script>
 </body>
