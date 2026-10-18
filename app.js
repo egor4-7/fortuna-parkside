@@ -108,17 +108,49 @@ function setLanguage(lang) {
 function showZoneDetails(zoneKey) {
     const title = document.getElementById('zoneTitle');
     const desc = document.getElementById('zoneDesc');
+    const imageContainer = document.getElementById('zoneImageContainer');
     const details = {
-        entrance: { title: "Главный Вход", desc: "Консьерж-зона, электронный доступ, прозрачные стеклянные двери." },
-        elevators: { title: "Лифтовая Зона", desc: "2 бесшумных скоростных лифта с выходом на подземный этаж и жилые этажи 1–5." },
-        infostand: { title: "Информационный Стенд", desc: "Расписание обслуживания, контакты управляющей компании и новости ЖК." },
-        stairs: { title: "Центральная Лестница", desc: "Удобный лестничный марш с панорамным освещением." },
-        lounge: { title: "Холл & Зона Отдыха", desc: "Мягкая диванная зона для приема гостей и ожидания." },
-        sauna: { title: "Финская Сауна", desc: "Просторная парная из натурального кедра с душевыми и раздевалкой." },
-        gym: { title: "Панорамный Фитнес-зал", desc: "Современные беговые дорожки, силовые тренажеры и гантельный ряд." }
+        entrance: {
+            title: "Главный Вход",
+            desc: "Консьерж-зона, электронный доступ, прозрачные стеклянные двери.",
+            img: "photo2.jpg"
+        },
+        elevators: {
+            title: "Лифтовая Зона",
+            desc: "2 бесшумных скоростных лифта с выходом на подземный этаж и жилые этажи 1–5.",
+            img: "photo1.jpg"
+        },
+        infostand: {
+            title: "Информационный Стенд",
+            desc: "Расписание обслуживания, контакты управляющей компании и новости ЖК.",
+            img: "photo10.jpg"
+        },
+        stairs: {
+            title: "Центральная Лестница",
+            desc: "Удобный лестничный марш с панорамным освещением и мраморной отделкой.",
+            img: "photo4.jpg"
+        },
+        lounge: {
+            title: "Холл & Зона Отдыха",
+            desc: "Мягкая диванная зона для приема гостей, ожидания и отдыха.",
+            img: "photo5.jpg"
+        },
+        sauna: {
+            title: "Финская Сауна",
+            desc: "Просторная парная из натурального кедра с душевыми и раздевалкой.",
+            img: "photo9.jpg"
+        },
+        gym: {
+            title: "Панорамный Фитнес-зал",
+            desc: "Современные беговые дорожки, силовые тренажеры и гантельный ряд.",
+            img: "photo7.jpg"
+        }
     };
     if (details[zoneKey]) {
         title.textContent = details[zoneKey].title;
         desc.textContent = details[zoneKey].desc;
+        if (imageContainer) {
+            imageContainer.innerHTML = `<img src="${details[zoneKey].img}" alt="${details[zoneKey].title}" style="width:100%; height:200px; object-fit:cover; border-radius:12px; margin-top:15px; border:1px solid rgba(255,255,255,0.1);">`;
+        }
     }
 }
