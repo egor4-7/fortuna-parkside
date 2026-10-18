@@ -265,9 +265,9 @@ button:focus-visible {
 
 .external-link-icon {
     display: inline-block;
-    width: 1em;
-    flex: 0 0 1em;
-    font-size: 0.85em;
+    width: 12px;
+    flex: 0 0 12px;
+    font-size: 12px;
     line-height: 1;
     text-align: center;
 }
@@ -620,8 +620,14 @@ p {
 }
 
 .amenity-pool { background-color: #18302f; }
-.amenity-wellness { background-color: #282c22; }
-.amenity-fitness { background-color: #1b3028; }
+.amenity-wellness,
+.amenity-fitness {
+    border-color: rgb(255 255 255 / 28%);
+    background: linear-gradient(135deg, rgb(255 255 255 / 12%), rgb(255 255 255 / 5%));
+    box-shadow: 0 12px 32px rgb(0 0 0 / 18%);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
 
 .amenity-number,
 .amenity-mark,

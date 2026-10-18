@@ -4,7 +4,7 @@ const translations = {
         brand_label: "Fortuna Parkside — главная",
         nav_label: "Основная навигация",
         nav_home: "Главная",
-        nav_plan: "Plan 0-Floor",
+        nav_plan: "План 0-го этажа",
         nav_territory: "Территория",
         nav_catalog: "Квартиры",
         btn_add: "Разместить объявление",
