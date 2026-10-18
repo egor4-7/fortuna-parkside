@@ -779,6 +779,53 @@ p {
     font-size: 14px;
 }
 
+.inquiry-form {
+    display: grid;
+    gap: 10px;
+}
+
+.inquiry-form label {
+    margin-top: 5px;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.inquiry-form input {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 13px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: rgb(255 255 255 / 4%);
+    color: var(--text);
+    font: inherit;
+}
+
+.inquiry-form input::placeholder {
+    color: var(--muted);
+}
+
+.inquiry-form input:focus-visible {
+    border-color: var(--accent);
+    outline: 2px solid rgb(200 239 139 / 30%);
+    outline-offset: 2px;
+}
+
+.inquiry-form .form-notice,
+.inquiry-form .form-status {
+    margin: 6px 0;
+    font-size: 12px;
+}
+
+.inquiry-form .form-status {
+    color: var(--accent);
+}
+
+.inquiry-form .button {
+    justify-self: start;
+}
+
 .info-dialog > form:first-child {
     display: flex;
     justify-content: flex-end;

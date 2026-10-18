@@ -58,8 +58,14 @@ const translations = {
         close_label: "Закрыть окно",
         dialog_brand: "Fortuna Parkside",
         buy_dialog_title: "Информация о квартирах",
-        buy_dialog_desc: "Свяжитесь с представителем комплекса, чтобы уточнить актуальные планировки, цены и наличие. Контактные данные можно добавить, когда они будут предоставлены.",
-        dialog_return: "Вернуться к квартирам",
+        buy_dialog_desc: "Оставьте контактные данные, чтобы узнать подробнее о квартирах Fortuna Parkside.",
+        form_name_label: "Имя",
+        form_name_placeholder: "Ваше имя",
+        form_contact_label: "Телефон / Telegram",
+        form_contact_placeholder: "+90...",
+        form_notice: "Форма пока не подключена к отправке заявок. Данные останутся только в этом окне и не будут отправлены.",
+        form_submit: "Отправить заявку",
+        form_not_sent: "Заявка не отправлена: форма пока не подключена.",
         listing_eyebrow: "Для собственников",
         listing_title: "Размещение объявления",
         listing_desc: "Публикация объявлений на сайте пока не подключена. Этот раздел можно связать с формой размещения, когда будет выбран способ приёма заявок.",
@@ -124,8 +130,14 @@ const translations = {
         close_label: "Pencereyi kapat",
         dialog_brand: "Fortuna Parkside",
         buy_dialog_title: "Daire bilgileri",
-        buy_dialog_desc: "Güncel daire planları, fiyatlar ve müsaitlik hakkında bilgi almak için kompleks temsilcisiyle iletişime geçin.",
-        dialog_return: "Dairelere dön",
+        buy_dialog_desc: "Fortuna Parkside daireleri hakkında ayrıntılı bilgi almak için iletişim bilgilerinizi girin.",
+        form_name_label: "Ad",
+        form_name_placeholder: "Adınız",
+        form_contact_label: "Telefon / Telegram",
+        form_contact_placeholder: "+90...",
+        form_notice: "Form henüz başvuru gönderimine bağlı değil. Bilgileriniz bu pencerede kalır ve gönderilmez.",
+        form_submit: "Talep gönder",
+        form_not_sent: "Talep gönderilmedi: form henüz etkin değil.",
         listing_eyebrow: "Daire sahipleri için",
         listing_title: "İlan verme",
         listing_desc: "Web sitesinde ilan yayınlama henüz etkin değil. Başvuru yöntemi belirlendiğinde bu bölüm bir ilana bağlanabilir.",
@@ -190,8 +202,14 @@ const translations = {
         close_label: "Close dialog",
         dialog_brand: "Fortuna Parkside",
         buy_dialog_title: "Apartment information",
-        buy_dialog_desc: "Contact a representative of the complex to confirm current layouts, prices, and availability.",
-        dialog_return: "Back to apartments",
+        buy_dialog_desc: "Enter your contact details to learn more about apartments at Fortuna Parkside.",
+        form_name_label: "Name",
+        form_name_placeholder: "Your name",
+        form_contact_label: "Phone / Telegram",
+        form_contact_placeholder: "+90...",
+        form_notice: "This form is not connected to a submission service yet. Your details stay in this dialog and will not be sent.",
+        form_submit: "Submit inquiry",
+        form_not_sent: "Inquiry not sent: the form is not connected yet.",
         listing_eyebrow: "For owners",
         listing_title: "Post a listing",
         listing_desc: "Listing submissions are not available on this site yet. This section can be connected to a submission form once an application method is chosen.",
@@ -245,6 +263,7 @@ const zonesData = {
 const languageButtons = document.querySelectorAll("[data-language]");
 const translatableElements = document.querySelectorAll("[data-i18n]");
 const translatableLabels = document.querySelectorAll("[data-i18n-aria-label]");
+const translatablePlaceholders = document.querySelectorAll("[data-i18n-placeholder]");
 const zoneButtons = document.querySelectorAll("[data-zone]");
 let currentLanguage = "ru";
 let selectedZone = null;
@@ -294,6 +313,19 @@ function setLanguage(language) {
         element.setAttribute("aria-label", translation);
     });
 
+    translatablePlaceholders.forEach((element) => {
+        const translation = languageStrings[element.dataset.i18nPlaceholder];
+        if (translation === undefined) {
+            throw new Error(`Missing placeholder translation: ${language}.${element.dataset.i18nPlaceholder}`);
+        }
+        element.setAttribute("placeholder", translation);
+    });
+
+    const purchaseStatus = document.querySelector("#purchase-status");
+    if (!purchaseStatus.hidden) {
+        purchaseStatus.textContent = languageStrings.form_not_sent;
+    }
+
     languageButtons.forEach((button) => {
         const isActive = button.dataset.language === language;
         button.classList.toggle("active", isActive);
@@ -340,6 +372,13 @@ document.querySelectorAll("[data-close-dialog]").forEach((link) => {
     link.addEventListener("click", () => {
         link.closest("dialog")?.close();
     });
+});
+
+document.querySelector("#purchase-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    const status = document.querySelector("#purchase-status");
+    status.textContent = translations[currentLanguage].form_not_sent;
+    status.hidden = false;
 });
 
 document.querySelectorAll("dialog").forEach((dialog) => {

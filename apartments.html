@@ -31,7 +31,7 @@
         </nav>
         <div class="header-actions">
             <button class="button button-quiet" type="button" data-dialog="listing-dialog"><span data-i18n="btn_add">Разместить объявление</span></button>
-            <a class="button button-primary" href="#catalog"><span data-i18n="btn_buy">Купить квартиру</span> <span aria-hidden="true">↗</span></a>
+            <button class="button button-primary" type="button" data-dialog="buy-dialog"><span data-i18n="btn_buy">Купить квартиру</span> <span aria-hidden="true">↗</span></button>
             <div class="language-switch" role="group" aria-label="Выбор языка" data-i18n-aria-label="language_label">
                 <button type="button" lang="tr" data-language="tr" aria-pressed="false">TR</button>
                 <button type="button" lang="ru" data-language="ru" aria-pressed="true">RU</button>
@@ -182,8 +182,16 @@
         <form method="dialog"><button class="dialog-close" aria-label="Закрыть окно" data-i18n-aria-label="close_label">×</button></form>
         <p class="eyebrow" data-i18n="dialog_brand">Fortuna Parkside</p>
         <h2 id="buy-dialog-title" data-i18n="buy_dialog_title">Информация о квартирах</h2>
-        <p data-i18n="buy_dialog_desc">Свяжитесь с представителем комплекса, чтобы уточнить актуальные планировки, цены и наличие. Контактные данные можно добавить, когда они будут предоставлены.</p>
-        <a class="button button-primary" href="#catalog" data-close-dialog data-i18n="dialog_return">Вернуться к квартирам</a>
+        <p data-i18n="buy_dialog_desc">Оставьте контактные данные, чтобы узнать подробнее о квартирах Fortuna Parkside.</p>
+        <form class="inquiry-form" id="purchase-form">
+            <label for="buyer-name" data-i18n="form_name_label">Имя</label>
+            <input id="buyer-name" name="name" type="text" autocomplete="name" required data-i18n-placeholder="form_name_placeholder" placeholder="Ваше имя">
+            <label for="buyer-contact" data-i18n="form_contact_label">Телефон / Telegram</label>
+            <input id="buyer-contact" name="contact" type="text" autocomplete="tel" required data-i18n-placeholder="form_contact_placeholder" placeholder="+90...">
+            <p class="form-notice" data-i18n="form_notice">Форма пока не подключена к отправке заявок. Данные останутся только в этом окне и не будут отправлены.</p>
+            <p class="form-status" id="purchase-status" role="status" aria-live="polite" hidden></p>
+            <button class="button button-primary" type="submit" data-i18n="form_submit">Отправить заявку</button>
+        </form>
     </dialog>
 
     <dialog class="info-dialog" id="listing-dialog" aria-labelledby="listing-dialog-title">
