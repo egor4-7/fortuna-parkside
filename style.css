@@ -263,6 +263,30 @@ button:focus-visible {
     padding-inline: 22px;
 }
 
+.external-link-icon {
+    display: inline-block;
+    width: 1em;
+    flex: 0 0 1em;
+    font-size: 0.85em;
+    line-height: 1;
+    text-align: center;
+}
+
+.external-link-address {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    text-decoration: none;
+}
+
+.external-link-address .external-link-icon {
+    color: var(--accent);
+}
+
+.external-link-address:hover {
+    color: var(--accent);
+}
+
 main {
     width: min(100% - 40px, 1240px);
     margin-inline: auto;
@@ -337,7 +361,7 @@ p {
     text-decoration: none;
 }
 
-.address span {
+.address:hover {
     color: var(--accent);
 }
 
@@ -1339,8 +1363,16 @@ p {
 }
 
 .address-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
     color: var(--muted);
     font-size: 13px;
+    text-decoration: none;
+}
+
+.address-text:hover {
+    color: var(--accent);
 }
 
 .hero-desc {
