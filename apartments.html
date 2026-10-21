@@ -3,208 +3,601 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#101413">
-    <meta name="description" content="Fortuna Parkside — жилой комплекс у моря в Газипаше. Изучите территорию, удобства и варианты квартир.">
-    <title data-i18n="page_title">Fortuna Parkside — квартиры в Газипаше</title>
-    <link rel="stylesheet" href="style.css?v=2.1">
+    <meta name="theme-color" content="#0d1411">
+    <title>Fortuna Parkside — Премиальный комплекс у моря</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0b1210;
+            color: #e2ede7;
+            overflow-x: hidden;
+            width: 100vw;
+            position: relative;
+        }
+
+        /* Фоновые жидкие градиенты Apple Style */
+        .ambient {
+            position: fixed;
+            width: 60vw;
+            height: 60vw;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.35;
+            pointer-events: none;
+            animation: floatAmbient 12s ease-in-out infinite alternate;
+        }
+        .ambient-one { top: -10%; left: -10%; background: #164e32; }
+        .ambient-two { bottom: 10%; right: -10%; background: #1b5e3a; animation-delay: -4s; }
+
+        @keyframes floatAmbient {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(40px) scale(1.1); }
+        }
+
+        /* Шапка */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(11, 18, 16, 0.75);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 3vw;
+            z-index: 1000;
+        }
+
+        .brand {
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+        .brand-name { font-weight: 900; font-size: 1.3rem; letter-spacing: -0.5px; }
+        .brand-subtitle { font-weight: 500; font-size: 0.75rem; color: #73b88b; letter-spacing: 2px; }
+
+        .main-nav {
+            display: flex;
+            gap: 2.5rem;
+        }
+        .main-nav a {
+            color: #b0c7bc;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        .main-nav a:hover { color: #52d182; }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            border: none;
+        }
+
+        .button-primary {
+            background: linear-gradient(135deg, #74e39a, #43a068);
+            color: #051a10;
+            box-shadow: 0 8px 25px rgba(67, 160, 104, 0.4);
+        }
+        .button-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(67, 160, 104, 0.6);
+        }
+
+        .button-quiet {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+        .button-quiet:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Основной контейнер с эффектом углубления при свайпе (Depth Scroll) */
+        main {
+            padding: 100px 2vw 4vw 2vw;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            perspective: 1200px;
+        }
+
+        .depth-section {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
+            will-change: transform, opacity;
+        }
+
+        /* Glass Panel с глубокими бликами */
+        .glass-panel {
+            background: rgba(18, 30, 25, 0.75);
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 2.5rem;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        }
+
+        /* Hero секция */
+        .hero {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2.5rem;
+            align-items: stretch;
+        }
+
+        .hero-copy {
+            padding: 4.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .eyebrow {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #74e39a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .eyebrow-dot {
+            width: 8px; height: 8px; background: #74e39a; border-radius: 50%;
+            box-shadow: 0 0 12px #74e39a;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 5vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            color: #fff;
+            margin: 1.5rem 0;
+        }
+        .hero h1 span { color: #52d182; }
+
+        .address {
+            color: #a3c2b2;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            transition: color 0.3s;
+        }
+        .address:hover { color: #fff; }
+
+        .hero-description {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: #c0d9cc;
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+        }
+
+        .hero-facts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 2.5rem;
+        }
+        .fact-value { font-size: 2rem; font-weight: 900; color: #fff; display: block; }
+        .fact-label { font-size: 0.85rem; color: #8fae9e; font-weight: 600; margin-top: 0.25rem; display: block; }
+
+        /* Реальный фото-слайдер / Арт-бокс с реальными фото комплекса */
+        .hero-art {
+            border-radius: 2.5rem;
+            overflow: hidden;
+            position: relative;
+            min-height: 500px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            background: url('image_21.png') center/cover no-repeat;
+        }
+        .hero-art::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(11,18,16,0.1) 0%, rgba(11,18,16,0.8) 100%);
+        }
+        .art-caption {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            right: 2rem;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 0.95rem;
+            background: rgba(11, 18, 16, 0.6);
+            backdrop-filter: blur(15px);
+            padding: 1rem 1.5rem;
+            border-radius: 1.25rem;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        /* ИНТЕРАКТИВНЫЕ ОБЪЕКТЫ И ДВЕРИ (Эпловский уровень) */
+        .section {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .section-heading h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -1px;
+            margin-top: 0.5rem;
+        }
+
+        .floor-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2.5rem;
+            padding: 3rem;
+            align-items: center;
+        }
+
+        .floor-plan {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        .plan-zone {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            padding: 1.75rem;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: left;
+        }
+        .plan-zone:hover, .plan-zone.is-selected {
+            background: linear-gradient(135deg, rgba(82, 209, 130, 0.2), rgba(30, 92, 58, 0.4));
+            border-color: #52d182;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(82, 209, 130, 0.2);
+        }
+        .zone-symbol {
+            font-size: 1.8rem;
+            color: #52d182;
+        }
+        .plan-zone span:last-child {
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .zone-details {
+            background: rgba(11, 18, 16, 0.6);
+            border-radius: 2rem;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .detail-index {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: rgba(82, 209, 130, 0.3);
+            line-height: 1;
+        }
+        .zone-details h3 { font-size: 1.8rem; font-weight: 800; color: #fff; }
+        .zone-details p { font-size: 1.05rem; color: #b0c7bc; line-height: 1.6; }
+
+        /* ИНТЕРАКТИВНАЯ ДВЕРЬ С РУЧКОЙ (Скриншот реальной двери с черным котом) */
+        .interactive-door-box {
+            border-radius: 2.5rem;
+            overflow: hidden;
+            position: relative;
+            min-height: 450px;
+            background: url('image_22.png') center/cover no-repeat;
+            display: flex;
+            align-items: flex-end;
+            padding: 3rem;
+            cursor: pointer;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+        }
+        .door-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(11, 18, 16, 0.4);
+            backdrop-filter: blur(5px);
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
+            transform-origin: left center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 3px solid #52d182;
+        }
+        .interactive-door-box.opened .door-overlay {
+            transform: perspective(1200px) rotateY(-75deg);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .door-handle-badge {
+            background: rgba(11, 18, 16, 0.85);
+            border: 1px solid #52d182;
+            padding: 1.25rem 2.5rem;
+            border-radius: 999px;
+            font-weight: 800;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(82, 209, 130, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: pulseHandle 2s infinite;
+        }
+        @keyframes pulseHandle {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(82,209,130,0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 35px rgba(82,209,130,0.8); }
+        }
+
+        /* Сетка удобств с реальными фото */
+        .amenity-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .amenity-card {
+            border-radius: 2.5rem;
+            padding: 3rem;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .amenity-card:hover { transform: translateY(-8px); }
+        .amenity-pool { background: linear-gradient(180deg, rgba(0,0,0,0.2) 30%, rgba(11,18,16,0.95) 100%), url('image_20.png') center/cover no-repeat; }
+        .amenity-wellness { background: linear-gradient(180deg, rgba(0,0,0,0.2) 30%, rgba(11,18,16,0.95) 100%), url('image_18.png') center/cover no-repeat; }
+        .amenity-fitness { background: linear-gradient(180deg, rgba(0,0,0,0.2) 30%, rgba(11,18,16,0.95) 100%), url('image_24.png') center/cover no-repeat; }
+
+        .amenity-number { font-size: 0.9rem; font-weight: 800; color: #74e39a; margin-bottom: auto; text-transform: uppercase; letter-spacing: 1px; }
+        .amenity-card h3 { font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 0.5rem; }
+        .amenity-card p { font-size: 1.05rem; color: #c0d9cc; line-height: 1.5; }
+
+        /* Футер */
+        .site-footer {
+            margin-top: 4rem;
+            padding: 3rem 5vw;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(11, 18, 16, 0.9);
+            border-radius: 2.5rem 2.5rem 0 0;
+        }
+
+        /* Адаптив для мобильных */
+        @media(max-width: 1024px) {
+            .hero, .floor-layout, .amenity-grid { grid-template-columns: 1fr; }
+            .main-nav { display: none; }
+            .hero-copy { padding: 2.5rem; }
+        }
+    </style>
 </head>
 <body>
-    <div class="ambient ambient-one" aria-hidden="true"></div>
-    <div class="ambient ambient-two" aria-hidden="true"></div>
-    <div class="ambient ambient-three" aria-hidden="true"></div>
-    <div class="liquid-lens" id="liquidLens" aria-hidden="true">
-        <div class="lens-glow"></div>
-        <span class="lens-label"><i class="fa-solid fa-magnifying-glass"></i> Glassmorphism 3D</span>
-    </div>
+
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
 
     <header class="site-header">
-        <a class="brand" href="apartments.html" aria-label="Fortuna Parkside — главная" data-i18n-aria-label="brand_label">
+        <a class="brand" href="#">
             <span class="brand-name">FORTUNA</span>
-            <span class="brand-subtitle">Parkside</span>
+            <span class="brand-subtitle">PARKSIDE</span>
         </a>
-        <nav class="main-nav" aria-label="Основная навигация" data-i18n-aria-label="nav_label">
-            <a href="#hero" data-i18n="nav_home">Главная</a>
-            <a href="#interactive-floor" data-i18n="nav_plan">План 0-го этажа</a>
-            <a href="#territory" data-i18n="nav_territory">Территория</a>
-            <a href="#catalog" data-i18n="nav_catalog">Квартиры</a>
+        <nav class="main-nav">
+            <a href="#hero">Главная</a>
+            <a href="#interactive-floor">0-й этаж</a>
+            <a href="#territory">Территория</a>
+            <a href="#catalog">Квартиры</a>
         </nav>
         <div class="header-actions">
-            <button class="button button-quiet" type="button" data-dialog="listing-dialog"><span data-i18n="btn_add">Разместить объявление</span></button>
-            <button class="button button-primary" type="button" data-dialog="buy-dialog"><span data-i18n="btn_buy">Купить квартиру</span> <i class="fa-solid fa-arrow-up-right-from-square external-link-icon" aria-hidden="true"></i></button>
-            <div class="language-switch" role="group" aria-label="Выбор языка" data-i18n-aria-label="language_label">
-                <button type="button" lang="tr" data-language="tr" aria-pressed="false">TR</button>
-                <button type="button" lang="ru" data-language="ru" aria-pressed="true">RU</button>
-                <button type="button" lang="en" data-language="en" aria-pressed="false">EN</button>
-            </div>
+            <button class="button button-quiet" type="button">Разместить</button>
+            <button class="button button-primary" type="button">Купить квартиру</button>
         </div>
     </header>
 
-    <main>
-        <section class="hero" id="hero" aria-labelledby="hero-title">
+    <main id="mainContainer">
+        
+        <!-- HERO СЕКЦИЯ -->
+        <section class="hero depth-section" id="hero">
             <div class="hero-copy glass-panel">
                 <p class="eyebrow"><span class="eyebrow-dot"></span> Gazipaşa · Antalya · Türkiye</p>
-                <h1 id="hero-title">Fortuna<br><span>Parkside</span></h1>
-                <a class="address external-link-address" href="https://maps.google.com/?q=Hac%C4%B1+Musa+Cd.+68%2F1%2C+Gazipa%C5%9Fa%2C+Antalya%2C+T%C3%BCrkiye" target="_blank" rel="noopener noreferrer">
+                <h1>Fortuna<br><span>Parkside</span></h1>
+                <a class="address" href="https://maps.google.com/?q=Haci+Musa+Cd.+68/1" target="_blank">
                     Hacı Musa Cd. 68/1, 07900 Gazipaşa / Antalya
-                    <i class="fa-solid fa-arrow-up-right-from-square external-link-icon" aria-hidden="true"></i>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
-                <p class="hero-description" data-i18n="hero_desc">Премиальный жилой комплекс с бассейном, сауной, панорамным фитнес-центром и закрытой благоустроенной территорией у моря.</p>
-                <div class="hero-facts" aria-label="Особенности комплекса" data-i18n-aria-label="facts_label">
-                    <div class="fact"><span class="fact-value">5</span><span class="fact-label" data-i18n="stat_floors">Этажей</span></div>
-                    <div class="fact"><span class="fact-value">0</span><span class="fact-label" data-i18n="stat_spa">SPA &amp; Gym Floor</span></div>
-                    <div class="fact"><span class="fact-value"><i class="fa-solid fa-person-swimming" aria-hidden="true"></i></span><span class="fact-label" data-i18n="stat_pool">Бассейн и парк</span></div>
+                <p class="hero-description">Премиальный жилой комплекс у моря с бассейном, сауной, панорамным фитнес-центром и закрытой благоустроенной территорией.</p>
+                <div class="hero-facts">
+                    <div><span class="fact-value">5</span><span class="fact-label">Этажей</span></div>
+                    <div><span class="fact-value"><i class="fa-solid fa-spa"></i></span><span class="fact-label">SPA Floor</span></div>
+                    <div><span class="fact-value"><i class="fa-solid fa-water-ladder"></i></span><span class="fact-label">Бассейн</span></div>
                 </div>
-                <a class="button button-primary button-large" href="#interactive-floor"><span data-i18n="btn_enter">Зайти внутрь дома</span> <span aria-hidden="true">↓</span></a>
+                <a class="button button-primary" href="#interactive-floor" style="width: fit-content;">Зайти внутрь дома <i class="fa-solid fa-arrow-down"></i></a>
             </div>
-            <div class="hero-art" aria-hidden="true">
-                <div class="sun-disc"></div>
-                <div class="art-horizon"></div>
-                <div class="building building-back"></div>
-                <div class="building building-front">
-                    <span></span><span></span><span></span><span></span>
-                    <span></span><span></span><span></span><span></span>
-                    <span></span><span></span><span></span><span></span>
-                </div>
+            <div class="hero-art">
                 <div class="art-caption"><span>36°16' N</span><span>Gazipaşa, Türkiye</span></div>
             </div>
         </section>
 
-        <section class="section floor-section" id="interactive-floor" aria-labelledby="floor-title">
+        <!-- ИНТЕРАКТИВНАЯ ВХОДНАЯ ДВЕРЬ (Нажмите на ручку, чтобы открыть) -->
+        <section class="section depth-section">
             <div class="section-heading">
-                <p class="eyebrow" data-i18n="floor_eyebrow">Пространство для жизни</p>
-                <h2 id="floor-title" data-i18n="floor_heading">Интерактивный навигатор: 0-й этаж</h2>
-                <p data-i18n="floor_sub">Нажмите на любую зону плана, чтобы совершить виртуальный осмотр</p>
+                <p class="eyebrow">Интерактивный опыт</p>
+                <h2>Виртуальное открытие входной двери</h2>
+            </div>
+            <div class="interactive-door-box" id="doorBox" onclick="toggleDoor()">
+                <div class="door-overlay" id="doorOverlay">
+                    <div class="door-handle-badge">
+                        <i class="fa-solid fa-hand-pointer"></i> Нажмите на ручку двери (или свайп)
+                    </div>
+                </div>
+                <div style="background: rgba(11,18,16,0.85); padding: 1.25rem 2rem; border-radius: 1.25rem; backdrop-filter: blur(10px); z-index: 1;">
+                    <h3 style="font-size: 1.5rem; font-weight: 800; color: #fff;">Главный холл Fortuna</h3>
+                    <p style="color: #a3c2b2; margin-top: 0.25rem;">Дверь открыта: виден холл, мраморный пол и наш пушистый кот.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 0-Й ЭТАЖ НАВИГАТОР -->
+        <section class="section depth-section" id="interactive-floor">
+            <div class="section-heading">
+                <p class="eyebrow">Пространство для жизни</p>
+                <h2>Интерактивный навигатор: 0-й этаж</h2>
             </div>
             <div class="floor-layout glass-panel">
-                <div class="floor-plan" role="group" aria-label="Зоны схематичного плана 0-го этажа" data-i18n-aria-label="plan_label">
-                    <button class="plan-zone is-selected" type="button" data-zone="entrance" aria-pressed="true">
-                        <span class="zone-symbol" aria-hidden="true"><i class="fa-solid fa-door-open"></i></span><span data-i18n="z_entrance">Главный вход</span>
+                <div class="floor-plan">
+                    <button class="plan-zone is-selected" onclick="selectZone(this, 'Главный вход', 'Просторная входная группа с дизайнерским освещением и охраной.', '01')">
+                        <span class="zone-symbol"><i class="fa-solid fa-door-open"></i></span>
+                        <span>Главный вход</span>
                     </button>
-                    <button class="plan-zone" type="button" data-zone="elevators" aria-pressed="false">
-                        <span class="zone-symbol" aria-hidden="true"><i class="fa-solid fa-elevator"></i></span><span data-i18n="z_elevators">2 лифта (1–5 эт.)</span>
+                    <button class="plan-zone" onclick="selectZone(this, 'Лифтовая зона', 'Два современных бесшумных лифта (1–5 этажи).', '02')">
+                        <span class="zone-symbol"><i class="fa-solid fa-elevator"></i></span>
+                        <span>Лифты</span>
                     </button>
-                    <button class="plan-zone" type="button" data-zone="infostand" aria-pressed="false">
-                        <span class="zone-symbol" aria-hidden="true"><i class="fa-solid fa-circle-info"></i></span><span data-i18n="z_infostand">Инфо-стенд</span>
+                    <button class="plan-zone" onclick="selectZone(this, 'Финская сауна', 'Зона восстановления, расслабления и финская парная.', '03')">
+                        <span class="zone-symbol"><i class="fa-solid fa-hot-tub-person"></i></span>
+                        <span>Сауна</span>
                     </button>
-                    <button class="plan-zone" type="button" data-zone="stairs" aria-pressed="false">
-                        <span class="zone-symbol" aria-hidden="true"><i class="fa-solid fa-stairs"></i></span><span data-i18n="z_stairs">Лестница наверх</span>
-                    </button>
-                    <button class="plan-zone" type="button" data-zone="lounge" aria-pressed="false">
-                        <span class="zone-symbol" aria-hidden="true"><i class="fa-solid fa-couch"></i></span><span data-i18n="z_lounge">Холл и зона отдыха</span>
-                    </button>
-                    <button class="plan-zone" type="button" data-zone="sauna" aria-pressed="false">
-                        <span class="zone-symbol" aria-hidden="true"><i class="fa-solid fa-hot-tub-person"></i></span><span data-i18n="z_sauna">Финская сауна</span>
-                    </button>
-                    <button class="plan-zone" type="button" data-zone="corridor" aria-pressed="false">
-                        <span class="zone-symbol" aria-hidden="true"><i class="fa-solid fa-arrow-right-long"></i></span><span data-i18n="z_corridor">Проход в спортзал</span>
-                    </button>
-                    <button class="plan-zone" type="button" data-zone="gym" aria-pressed="false">
-                        <span class="zone-symbol" aria-hidden="true"><i class="fa-solid fa-dumbbell"></i></span><span data-i18n="z_gym">Панорамный фитнес-зал</span>
+                    <button class="plan-zone" onclick="selectZone(this, 'Панорамный спортзал', 'Современные тренажеры, кардиозона и виды на окрестности.', '04')">
+                        <span class="zone-symbol"><i class="fa-solid fa-dumbbell"></i></span>
+                        <span>Фитнес-зал</span>
                     </button>
                 </div>
-                <aside class="zone-details" aria-live="polite" aria-atomic="true">
-                    <p class="eyebrow" data-i18n="zone_selected">Выбранная зона</p>
-                    <span class="detail-index" id="zone-index">01</span>
-                    <h3 id="zone-title" data-i18n="zone_default_title">Выберите объект на схеме</h3>
-                    <p id="zone-description" data-i18n="zone_default_desc">Кликните по любой зоне 0-го этажа, чтобы посмотреть описание.</p>
-                    <p class="plan-note" data-i18n="plan_note">Схема иллюстративная и не является техническим планом помещений.</p>
+                <aside class="zone-details">
+                    <span class="detail-index" id="zoneIndex">01</span>
+                    <h3 id="zoneTitle">Главный вход</h3>
+                    <p id="zoneDesc">Просторная входная группа с дизайнерским освещением, системой безопасности и комфортным доступом.</p>
                 </aside>
             </div>
         </section>
 
-        <section class="section territory-section" id="territory" aria-labelledby="territory-title">
+        <!-- ТЕРРИТОРИЯ И УДОБСТВА -->
+        <section class="section depth-section" id="territory">
             <div class="section-heading">
-                <p class="eyebrow" data-i18n="territory_eyebrow">Всё необходимое рядом</p>
-                <h2 id="territory-title" data-i18n="territory_title">Территория для отдыха и движения</h2>
-                <p data-i18n="territory_desc">Общие пространства комплекса созданы, чтобы отдыхать, заботиться о себе и проводить время на свежем воздухе.</p>
+                <p class="eyebrow">Всё необходимое рядом</p>
+                <h2>Территория для отдыха и движения</h2>
             </div>
             <div class="amenity-grid">
                 <article class="amenity-card amenity-pool">
-                    <span class="amenity-number" data-i18n="amenity_pool_number">01 / Вода</span>
-                    <span class="amenity-mark" aria-hidden="true">≈</span>
-                    <h3 data-i18n="amenity_pool_title">Бассейн</h3>
-                    <p data-i18n="amenity_pool_desc">Освежитесь и отдохните у воды в тёплые дни.</p>
+                    <span class="amenity-number">01 / Вода</span>
+                    <h3>Бассейн</h3>
+                    <p>Открытый бассейн с подсветкой и зоной для загара под солнцем Газипаши.</p>
                 </article>
                 <article class="amenity-card amenity-wellness">
-                    <span class="amenity-number" data-i18n="amenity_spa_number">02 / Баланс</span>
-                    <span class="amenity-mark" aria-hidden="true"><i class="fa-solid fa-spa"></i></span>
-                    <h3 data-i18n="amenity_spa_title">SPA и сауна</h3>
-                    <p data-i18n="amenity_spa_desc">Зона восстановления и спокойного отдыха.</p>
+                    <span class="amenity-number">02 / Баланс</span>
+                    <h3>SPA и сауна</h3>
+                    <p>Зона восстановления, релаксации и спокойного отдыха.</p>
                 </article>
                 <article class="amenity-card amenity-fitness">
-                    <span class="amenity-number" data-i18n="amenity_gym_number">03 / Энергия</span>
-                    <span class="amenity-mark" aria-hidden="true"><i class="fa-solid fa-dumbbell"></i></span>
-                    <h3 data-i18n="amenity_gym_title">Панорамный фитнес</h3>
-                    <p data-i18n="amenity_gym_desc">Тренировки с естественным светом и видом на окрестности.</p>
+                    <span class="amenity-number">03 / Энергия</span>
+                    <h3>Панорамный фитнес</h3>
+                    <p>Тренировки с естественным светом и видом на зеленую территорию.</p>
                 </article>
             </div>
         </section>
 
-        <section class="section catalog-section" id="catalog" aria-labelledby="catalog-title">
-            <div class="catalog-panel glass-panel">
-                <div class="catalog-copy">
-                    <p class="eyebrow" data-i18n="catalog_eyebrow">Найдите своё пространство</p>
-                    <h2 id="catalog-title" data-i18n="catalog_title">Квартира у моря начинается с правильного выбора</h2>
-                    <p data-i18n="catalog_desc">Расскажите, что для вас важно, — мы поможем сориентироваться по доступным вариантам.</p>
-                    <button class="button button-primary" type="button" data-dialog="buy-dialog">
-                        <span data-i18n="catalog_button">Запросить информацию</span>
-                        <i class="fa-solid fa-arrow-up-right-from-square external-link-icon" aria-hidden="true"></i>
-                    </button>
-                </div>
-                <div class="catalog-orbit" aria-hidden="true"><span>F</span></div>
-            </div>
-            <p class="availability-note" data-i18n="availability_note">Планировки, цены и наличие уточняйте перед покупкой.</p>
-        </section>
-
-        <section class="section donation-section" aria-labelledby="donation-title">
-            <div class="donate-box glass-panel">
-                <p class="eyebrow" data-i18n="donate_eyebrow">Спасибо за поддержку</p>
-                <h2 id="donation-title" data-i18n="donate_title">Поддержите развитие проекта</h2>
-                <p data-i18n="donate_desc">Если вам нравится сервис, вы можете отправить чаевые или донат разработчику.</p>
-                <div class="donate-buttons">
-                    <a href="https://buymeacoffee.com/egorgazip2wb" target="_blank" rel="noopener noreferrer" class="button button-primary">
-                        <i class="fa-solid fa-mug-hot" aria-hidden="true"></i> <span data-i18n="donate_coffee">Buy Me a Coffee (Карты мира / TR)</span>
-                    </a>
-                    <a href="https://pay.cloudtips.ru/p/6ce3fa3d" target="_blank" rel="noopener noreferrer" class="button button-quiet">
-                        <i class="fa-solid fa-credit-card" aria-hidden="true"></i> <span data-i18n="donate_cloudtips">CloudTips (Карты РФ / СБП)</span>
-                    </a>
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer class="site-footer">
-        <a class="brand" href="apartments.html" aria-label="Fortuna Parkside — главная" data-i18n-aria-label="brand_label">
-            <span class="brand-name">FORTUNA</span><span class="brand-subtitle">Parkside</span>
+        <a class="brand" href="#">
+            <span class="brand-name">FORTUNA</span>
+            <span class="brand-subtitle">PARKSIDE</span>
         </a>
-        <span>Gazipaşa, Antalya · Türkiye</span>
-        <a href="index.html"><span data-i18n="footer_residents">Кабинет жителей</span> <span aria-hidden="true">↗</span></a>
+        <p style="color: #73b88b; font-weight: 600;">Gazipaşa, Antalya · Türkiye</p>
+        <a href="index.html" style="color: #fff; text-decoration: none; font-weight: 700;">Кабинет НСТ <i class="fa-solid fa-arrow-right"></i></a>
     </footer>
 
-    <dialog class="info-dialog" id="buy-dialog" aria-labelledby="buy-dialog-title">
-        <form method="dialog"><button class="dialog-close" aria-label="Закрыть окно" data-i18n-aria-label="close_label">×</button></form>
-        <p class="eyebrow" data-i18n="dialog_brand">Fortuna Parkside</p>
-        <h2 id="buy-dialog-title" data-i18n="buy_dialog_title">Информация о квартирах</h2>
-        <p data-i18n="buy_dialog_desc">Оставьте контактные данные, чтобы узнать подробнее о квартирах Fortuna Parkside.</p>
-        <form class="inquiry-form" id="purchase-form">
-            <label for="buyer-name" data-i18n="form_name_label">Имя</label>
-            <input id="buyer-name" name="name" type="text" autocomplete="name" required data-i18n-placeholder="form_name_placeholder" placeholder="Ваше имя">
-            <label for="buyer-contact" data-i18n="form_contact_label">Телефон / Telegram</label>
-            <input id="buyer-contact" name="contact" type="text" autocomplete="tel" required data-i18n-placeholder="form_contact_placeholder" placeholder="+90...">
-            <p class="form-notice" data-i18n="form_notice">Форма пока не подключена к отправке заявок. Данные останутся только в этом окне и не будут отправлены.</p>
-            <p class="form-status" id="purchase-status" role="status" aria-live="polite" hidden></p>
-            <button class="button button-primary" type="submit" data-i18n="form_submit">Отправить заявку</button>
-        </form>
-    </dialog>
+    <script>
+        // Анимация глубины при свайпе / прокрутке (Parallax Depth Scroll)
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const sections = document.querySelectorAll('.depth-section');
+            
+            sections.forEach((sec, index) => {
+                const depthFactor = (index + 1) * 0.02;
+                const scale = Math.max(0.95, 1 - scrollY * 0.0003);
+                sec.style.transform = `translateY(${scrollY * depthFactor * 0.1}px) scale(${scale})`;
+                sec.style.opacity = Math.max(0.7, 1 - scrollY * 0.001);
+            });
+        });
 
-    <dialog class="info-dialog" id="listing-dialog" aria-labelledby="listing-dialog-title">
-        <form method="dialog"><button class="dialog-close" aria-label="Закрыть окно" data-i18n-aria-label="close_label">×</button></form>
-        <p class="eyebrow" data-i18n="listing_eyebrow">Для собственников</p>
-        <h2 id="listing-dialog-title" data-i18n="listing_title">Размещение объявления</h2>
-        <p data-i18n="listing_desc">Публикация объявлений на сайте пока не подключена. Этот раздел можно связать с формой размещения, когда будет выбран способ приёма заявок.</p>
-        <form method="dialog"><button class="button button-primary" data-i18n="dialog_ok">Понятно</button></form>
-    </dialog>
-    <script src="apartments.js?v=2.1" defer></script>
+        // Интерактивное открытие и закрытие двери по клику на ручку
+        function toggleDoor() {
+            const box = document.getElementById('doorBox');
+            box.classList.toggle('opened');
+        }
+
+        // Переключение зон на 0-м этаже
+        function selectZone(btn, title, desc, index) {
+            document.querySelectorAll('.plan-zone').forEach(z => z.classList.remove('is-selected'));
+            btn.classList.add('is-selected');
+            document.getElementById('zoneTitle').innerText = title;
+            document.getElementById('zoneDesc').innerText = desc;
+            document.getElementById('zoneIndex').innerText = index;
+        }
+    </script>
 </body>
 </html>
