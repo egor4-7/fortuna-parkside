@@ -1,747 +1,131 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0d1411">
-    <title>Fortuna Parkside — Премиальный комплекс у моря</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #0b1210;
-            color: #e2ede7;
-            overflow-x: hidden;
-            width: 100vw;
-            height: 100vh;
-            perspective: 2000px;
-            overflow-y: auto;
-        }
-
-        /* Фоновые жидкие градиенты Apple Style */
-        .ambient {
-            position: fixed;
-            width: 60vw;
-            height: 60vw;
-            border-radius: 50%;
-            filter: blur(100px);
-            z-index: -1;
-            opacity: 0.35;
-            pointer-events: none;
-            animation: floatAmbient 12s ease-in-out infinite alternate;
-        }
-        .ambient-one { top: -10%; left: -10%; background: #164e32; }
-        .ambient-two { bottom: 10%; right: -10%; background: #1b5e3a; animation-delay: -4s; }
-
-        @keyframes floatAmbient {
-            0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(40px) scale(1.1); }
-        }
-
-        /* Шапка */
-        .site-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 80px;
-            background: rgba(11, 18, 16, 0.75);
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 3vw;
-            z-index: 1000;
-        }
-
-        .brand {
-            text-decoration: none;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            line-height: 1;
-        }
-        .brand-name { font-weight: 900; font-size: 1.3rem; letter-spacing: -0.5px; }
-        .brand-subtitle { font-weight: 500; font-size: 0.75rem; color: #73b88b; letter-spacing: 2px; }
-
-        .main-nav {
-            display: flex;
-            gap: 2.5rem;
-        }
-        .main-nav a {
-            color: #b0c7bc;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-        }
-        .main-nav a:hover { color: #52d182; }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        /* ЭПЛОВСКАЯ ЖИДКАЯ ЛУПА ПОИСКА (Liquid Glass Search Magnifier) */
-        .search-glass-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-icon {
-            width: 18px;
-            height: 18px;
-            flex: 0 0 auto;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .search-magnifier-btn {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            color: #74e39a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.4);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        /* Блик жидкого стекла при наведении */
-        .search-magnifier-btn::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%);
-            transform: rotate(45deg) translateX(-100%);
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .search-magnifier-btn:hover {
-            transform: scale(1.15);
-            background: rgba(82, 209, 130, 0.2);
-            border-color: #52d182;
-            box-shadow: 0 12px 35px rgba(82, 209, 130, 0.4), inset 0 2px 4px rgba(255,255,255,0.6);
-        }
-
-        .search-magnifier-btn:hover::before {
-            transform: rotate(45deg) translateX(100%);
-        }
-
-        /* Выпадающее поле поиска с эффектом жидкого стекла */
-        .search-expand-box {
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 44px;
-            height: 44px;
-            background: rgba(18, 30, 25, 0.85);
-            backdrop-filter: blur(30px) saturate(220%);
-            -webkit-backdrop-filter: blur(30px) saturate(220%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 999px;
-            display: flex;
-            align-items: center;
-            padding: 0 12px;
-            overflow: hidden;
-            pointer-events: none;
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            z-index: 1050;
-        }
-
-        .search-expand-box.active {
-            width: 280px;
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .search-expand-box input {
-            background: transparent;
-            border: none;
-            color: #fff;
-            font-size: 0.9rem;
-            width: 100%;
-            outline: none;
-            padding-left: 30px;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .search-expand-box input::placeholder {
-            color: #8fae9e;
-        }
-
-        .search-expand-box .search-icon {
-            position: absolute;
-            left: 15px;
-            color: #74e39a;
-        }
-
-        /* Переключатель языков с лупой iOS */
-        .language-switch {
-            display: flex;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 999px;
-            padding: 0.25rem;
-            gap: 0.25rem;
-            backdrop-filter: blur(10px);
-            position: relative;
-            cursor: grab;
-        }
-        .language-switch button {
-            background: transparent;
-            border: none;
-            color: #a3c2b2;
-            font-weight: 700;
-            font-size: 0.75rem;
-            padding: 0.4rem 0.75rem;
-            border-radius: 999px;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            z-index: 2;
-        }
-        .language-switch button[aria-pressed="true"],
-        .language-switch button:hover {
-            background: #52d182;
-            color: #0b1210;
-        }
-
-        .ios-magnifier {
-            position: absolute;
-            width: 90px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(16px) saturate(220%);
-            -webkit-backdrop-filter: blur(16px) saturate(220%);
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            border-radius: 999px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 2px 6px rgba(255,255,255,0.8);
-            pointer-events: none;
-            transform: translate(-50%, -50%) scale(0);
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            color: #fff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-        }
-        .ios-magnifier.active {
-            transform: translate(-50%, -50%) scale(1.15) translateY(-25px);
-        }
-
-        .button {
-            padding: 0.75rem 1.5rem;
-            border-radius: 999px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-            border: none;
-        }
-
-        .button-primary {
-            background: linear-gradient(135deg, #74e39a, #43a068);
-            color: #051a10;
-            box-shadow: 0 8px 25px rgba(67, 160, 104, 0.4);
-        }
-        .button-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 35px rgba(67, 160, 104, 0.6);
-        }
-
-        .button-quiet {
-            background: rgba(255, 255, 255, 0.08);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-        }
-        .button-quiet:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        /* Сцена с зумом */
-        .zoom-scene {
-            padding: 100px 2vw 4vw 2vw;
-            display: flex;
-            flex-direction: column;
-            gap: 3rem;
-            max-width: 1600px;
-            margin: 0 auto;
-            transform-origin: center center;
-            transition: transform 0.1s cubic-bezier(0.1, 0.9, 0.2, 1);
-            will-change: transform;
-        }
-
-        .glass-panel {
-            background: rgba(18, 30, 25, 0.75);
-            backdrop-filter: blur(30px) saturate(200%);
-            -webkit-backdrop-filter: blur(30px) saturate(200%);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 2.5rem;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Hero */
-        .hero {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 2.5rem;
-            align-items: stretch;
-        }
-        .hero-copy {
-            padding: 4.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .eyebrow {
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #74e39a;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .eyebrow-dot {
-            width: 8px; height: 8px; background: #74e39a; border-radius: 50%;
-            box-shadow: 0 0 12px #74e39a;
-        }
-        .hero h1 {
-            font-size: clamp(3rem, 5vw, 5.5rem);
-            font-weight: 900;
-            line-height: 1.05;
-            letter-spacing: -2px;
-            color: #fff;
-            margin: 1.5rem 0;
-        }
-        .hero h1 span { color: #52d182; }
-        .address {
-            color: #a3c2b2;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.05rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .hero-description {
-            font-size: 1.15rem;
-            line-height: 1.6;
-            color: #c0d9cc;
-            margin-bottom: 2.5rem;
-        }
-        .hero-facts {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            padding: 2rem 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 2.5rem;
-        }
-        .fact-value { font-size: 2rem; font-weight: 900; color: #fff; display: block; }
-        .fact-label { font-size: 0.85rem; color: #8fae9e; font-weight: 600; margin-top: 0.25rem; display: block; }
-
-        .hero-art {
-            border-radius: 2.5rem;
-            overflow: hidden;
-            position: relative;
-            min-height: 500px;
-            background: url('image_24.png') center/cover no-repeat;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-        .hero-art::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(11,18,16,0.05) 50%, rgba(11,18,16,0.7) 100%);
-        }
-        .art-caption {
-            position: absolute;
-            bottom: 2rem; left: 2rem; right: 2rem;
-            z-index: 2;
-            display: flex; justify-content: space-between;
-            font-weight: 700; font-size: 0.95rem;
-            background: rgba(11, 18, 16, 0.65);
-            backdrop-filter: blur(15px);
-            padding: 1rem 1.5rem;
-            border-radius: 1.25rem;
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-
-        /* Секции */
-        .section { display: flex; flex-direction: column; gap: 2rem; }
-        .section-heading h2 { font-size: 2.5rem; font-weight: 900; color: #fff; margin-top: 0.5rem; }
-
-        .floor-layout {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 2.5rem;
-            padding: 3rem;
-            align-items: center;
-        }
-        .floor-plan { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-        .plan-zone {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1.5rem;
-            padding: 1.75rem;
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex; flex-direction: column; gap: 1rem; text-align: left;
-        }
-        .plan-zone:hover, .plan-zone.is-selected {
-            background: linear-gradient(135deg, rgba(82, 209, 130, 0.2), rgba(30, 92, 58, 0.4));
-            border-color: #52d182;
-            transform: translateY(-5px) scale(1.02);
-        }
-        .zone-symbol { font-size: 1.8rem; color: #52d182; }
-        .zone-details {
-            background: rgba(11, 18, 16, 0.6);
-            border-radius: 2rem;
-            padding: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex; flex-direction: column; gap: 1.25rem;
-        }
-        .detail-index { font-size: 3.5rem; font-weight: 900; color: rgba(82, 209, 130, 0.3); }
-
-        /* Интерактивная дверь */
-        .interactive-door-box {
-            border-radius: 2.5rem; overflow: hidden; position: relative;
-            min-height: 450px; background: url('image_22.png') center/cover no-repeat;
-            display: flex; align-items: flex-end; padding: 3rem; cursor: pointer;
-        }
-        .door-overlay {
-            position: absolute; inset: 0; background: rgba(11, 18, 16, 0.4);
-            backdrop-filter: blur(5px);
-            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
-            transform-origin: left center; display: flex; align-items: center; justify-content: center;
-            border-right: 3px solid #52d182;
-        }
-        .interactive-door-box.opened .door-overlay {
-            transform: perspective(1200px) rotateY(-75deg); opacity: 0.3; pointer-events: none;
-        }
-        .door-handle-badge {
-            background: rgba(11, 18, 16, 0.85); border: 1px solid #52d182;
-            padding: 1.25rem 2.5rem; border-radius: 999px; font-weight: 800; color: #fff;
-        }
-
-        /* Удобства */
-        .amenity-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-        .amenity-card {
-            border-radius: 2.5rem; padding: 3rem; min-height: 380px;
-            display: flex; flex-direction: column; justify-content: flex-end; position: relative; overflow: hidden;
-        }
-        .amenity-pool { background: linear-gradient(180deg, rgba(0,0,0,0.2) 30%, rgba(11,18,16,0.95) 100%), url('image_20.png') center/cover no-repeat; }
-        .amenity-wellness { background: linear-gradient(180deg, rgba(0,0,0,0.2) 30%, rgba(11,18,16,0.95) 100%), url('image_18.png') center/cover no-repeat; }
-        .amenity-fitness { background: linear-gradient(180deg, rgba(0,0,0,0.2) 30%, rgba(11,18,16,0.95) 100%), url('image_24.png') center/cover no-repeat; }
-        .amenity-number { font-size: 0.9rem; font-weight: 800; color: #74e39a; margin-bottom: auto; }
-
-        .site-footer {
-            margin-top: 4rem; padding: 3rem 5vw; border-top: 1px solid rgba(255,255,255,0.1);
-            display: flex; justify-content: space-between; align-items: center; background: rgba(11, 18, 16, 0.9);
-            border-radius: 2.5rem 2.5rem 0 0;
-        }
-
-        @media(max-width: 1024px) {
-            .hero, .floor-layout, .amenity-grid { grid-template-columns: 1fr; }
-            .main-nav { display: none; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1210">
+<title>Fortuna Parkside — Премиальный комплекс у моря</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+html{font-size:clamp(18px,2.1vw,34px);width:100%;height:100%;overflow:hidden;overscroll-behavior:none}
+body{width:100%;height:100dvh;overflow:hidden;position:fixed;inset:0;font-family:'Montserrat',sans-serif;background:#0b1210;color:#e2ede7;touch-action:none}
+.amb{position:fixed;width:70vmax;height:70vmax;border-radius:50%;filter:blur(90px);opacity:.4;pointer-events:none;animation:fl 14s ease-in-out infinite alternate}
+.a1{top:-25%;left:-20%;background:#14693f}.a2{bottom:-30%;right:-20%;background:#1f8a52;animation-delay:-6s}.a3{top:30%;left:35%;width:40vmax;height:40vmax;background:#0f4d5e;opacity:.3;animation-delay:-3s}
+@keyframes fl{to{transform:translate(6vmax,4vmax) scale(1.2)}}
+.glass{position:relative;background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.04));backdrop-filter:blur(26px) saturate(210%);-webkit-backdrop-filter:blur(26px) saturate(210%);border:1px solid rgba(255,255,255,.22);border-radius:1.6rem;box-shadow:0 1.5rem 3rem rgba(0,0,0,.35),inset 0 1px 1px rgba(255,255,255,.5),inset 0 -1px 1px rgba(255,255,255,.1);overflow:hidden}
+.glass::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--mx,30%) var(--my,0%),rgba(255,255,255,.28),transparent 45%);opacity:.7;transition:opacity .3s}
+.glass::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;pointer-events:none;background:linear-gradient(105deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-20deg);animation:sheen 7s ease-in-out infinite}
+@keyframes sheen{0%,70%{left:-60%}100%{left:140%}}
+header{position:fixed;top:0;left:0;right:0;height:3.4rem;z-index:1000;display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:0 1rem;background:rgba(11,18,16,.55);backdrop-filter:blur(25px) saturate(180%);-webkit-backdrop-filter:blur(25px) saturate(180%);border-bottom:1px solid rgba(255,255,255,.14)}
+.brand{color:#fff;text-decoration:none;display:flex;flex-direction:column;line-height:1;cursor:pointer}.brand b{font-weight:900;font-size:1.05rem}.brand i{font-style:normal;font-size:.5rem;letter-spacing:.2rem;color:#73b88b;font-weight:500}
+nav{display:flex;gap:1.3rem}nav a{color:#b0c7bc;font-weight:700;font-size:.62rem;cursor:pointer;transition:.3s}nav a:hover,nav a.on{color:#52d182;text-shadow:0 0 12px #52d182}
+.act{display:flex;align-items:center;gap:.5rem}.btn{padding:.45rem .9rem;border-radius:999px;font:700 .6rem 'Montserrat';cursor:pointer;border:1px solid rgba(255,255,255,.2);color:#fff;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);transition:.35s cubic-bezier(.16,1,.3,1);text-decoration:none;display:inline-flex;gap:.4rem;align-items:center;white-space:nowrap}
+.btn:hover{transform:scale(1.07);background:rgba(255,255,255,.2)}.btn.p{background:linear-gradient(135deg,#74e39a,#43a068);color:#051a10;border:0;box-shadow:0 .4rem 1.2rem rgba(67,160,104,.5)}
+.sw{display:flex;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:.15rem;position:relative;cursor:grab}.sw button{background:0;border:0;color:#a3c2b2;font:700 .52rem 'Montserrat';padding:.3rem .5rem;border-radius:999px;cursor:pointer;transition:.3s;position:relative;z-index:2}.sw button[aria-pressed=true],.sw button:hover{background:#52d182;color:#0b1210}
+.mag{position:absolute;width:3rem;height:1.7rem;background:rgba(255,255,255,.25);backdrop-filter:blur(16px) saturate(220%);border:2px solid rgba(255,255,255,.6);border-radius:999px;box-shadow:0 .6rem 1.2rem rgba(0,0,0,.5),inset 0 2px 6px rgba(255,255,255,.8);pointer-events:none;transform:translate(-50%,-50%) scale(0);transition:transform .25s cubic-bezier(.16,1,.3,1);z-index:10;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.7rem}.mag.on{transform:translate(-50%,-50%) scale(1.15) translateY(-1rem)}
+.sg{position:relative;width:2.1rem;height:2.1rem;z-index:1100}.sb{width:2.1rem;height:2.1rem;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(20px) saturate(180%);color:#74e39a;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 .4rem 1.2rem rgba(0,0,0,.3),inset 0 1px 2px rgba(255,255,255,.4);transition:.4s cubic-bezier(.16,1,.3,1);animation:ig 5s infinite}
+@keyframes ig{92%{box-shadow:0 .4rem 1.5rem rgba(116,227,154,.6),inset 0 2px 6px rgba(255,255,255,.8)}}
+.sb::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.5) 50%,transparent 60%);transform:rotate(45deg) translateX(-100%);transition:transform .6s}.sb:hover::before{transform:rotate(45deg) translateX(100%)}.sb::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at var(--mx,30%) var(--my,25%),rgba(255,255,255,.55),transparent 55%);opacity:0;transition:.3s}.sb:hover::after{opacity:1}.sb:hover{transform:scale(1.15);border-color:#52d182}
+.lens{position:relative;z-index:1;transition:.5s cubic-bezier(.16,1,.3,1);width:1.2rem;height:1.2rem}.lg{transform-origin:20px 20px;transition:.5s}.sb:hover .lens{transform:scale(1.18) rotate(-10deg)}.sb:hover .lg{transform:scale(1.12)}.gl{animation:gp 2.4s infinite}@keyframes gp{50%{opacity:.3}}
+.sx{position:absolute;right:0;top:0;width:2.1rem;height:2.1rem;background:rgba(18,30,25,.8);backdrop-filter:blur(30px) saturate(220%);border:1px solid rgba(255,255,255,.25);border-radius:999px;display:flex;align-items:center;padding:0 .6rem;overflow:hidden;opacity:0;pointer-events:none;transform-origin:right center;transition:width .6s cubic-bezier(.16,1,.3,1),opacity .3s;z-index:2}.sx.on{width:min(14rem,62vw);opacity:1;pointer-events:auto;animation:lq .8s cubic-bezier(.16,1,.3,1);box-shadow:0 1rem 2.5rem rgba(0,0,0,.6),0 0 1.5rem rgba(82,209,130,.3),inset 0 1px 3px rgba(255,255,255,.5)}
+@keyframes lq{0%{transform:scale(.3,.6);border-radius:50%}35%{transform:scale(1.1,.82);border-radius:40% 60% 55% 45%/60% 45% 55% 40%}65%{transform:scale(.97,1.1);border-radius:55% 45% 60% 40%/45% 60% 40% 55%}100%{transform:scale(1);border-radius:999px}}
+.sx i{color:#74e39a;font-size:.7rem;position:absolute;left:.7rem}.sx input{background:0;border:0;outline:0;color:#fff;font:.65rem 'Montserrat';width:100%;padding-left:1.1rem;-webkit-user-select:text;user-select:text}.sr{position:absolute;right:0;top:2.7rem;width:min(16rem,86vw);max-height:55vh;overflow-y:auto;background:rgba(18,30,25,.82);backdrop-filter:blur(30px) saturate(220%);border:1px solid rgba(255,255,255,.2);border-radius:1.1rem;padding:.35rem;opacity:0;transform:translateY(-10px) scale(.96);transform-origin:top right;pointer-events:none;transition:.5s cubic-bezier(.16,1,.3,1);z-index:3;touch-action:pan-y}.sr.show{opacity:1;transform:none;pointer-events:auto}.si{padding:.5rem .7rem;border-radius:.7rem;cursor:pointer;font-size:.58rem;line-height:1.4;color:#c0d9cc}.si:hover,.si.f{background:rgba(82,209,130,.2)}.si mark{background:rgba(116,227,154,.35);color:#fff;border-radius:3px}.se{padding:.7rem;text-align:center;font-size:.58rem;color:#8fae9e}
+.rip{position:fixed;inset:0;z-index:900;pointer-events:none;background:rgba(8,14,11,.45);backdrop-filter:blur(14px) saturate(180%);clip-path:circle(0 at var(--cx,90%) var(--cy,30px));transition:clip-path .9s cubic-bezier(.16,1,.3,1)}body.so .rip{clip-path:circle(150vmax at var(--cx,90%) var(--cy,30px));pointer-events:auto}
+.stage{position:fixed;inset:0;perspective:1200px;overflow:hidden}.layer{position:absolute;inset:0;padding:4.2rem 1.2rem 1rem;display:flex;align-items:center;justify-content:center;will-change:transform,opacity,filter;transform-style:preserve-3d}.in{width:100%;max-width:62rem;max-height:100%;display:flex;flex-direction:column;gap:.8rem}
+.eb{font-size:.55rem;font-weight:700;letter-spacing:.2rem;text-transform:uppercase;color:#74e39a;display:flex;align-items:center;gap:.4rem}.eb::before{content:'';width:.4rem;height:.4rem;border-radius:50%;background:#74e39a;box-shadow:0 0 .6rem #74e39a;animation:pu 2s infinite}@keyframes pu{50%{transform:scale(1.6);opacity:.5}}
+h1{font-size:clamp(2rem,6vw,3.6rem);font-weight:900;line-height:1;letter-spacing:-.1rem;color:#fff}h1 span{background:linear-gradient(90deg,#52d182,#9bf0bd,#52d182);background-size:200%;-webkit-background-clip:text;color:transparent;animation:gs 4s linear infinite}@keyframes gs{to{background-position:200%}}h2{font-size:clamp(1.1rem,3.4vw,1.8rem);font-weight:900;color:#fff}h3{font-size:.85rem;font-weight:800;color:#fff}p{font-size:.62rem;line-height:1.55;color:#c0d9cc}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:.8rem}.hc{padding:1.4rem;display:flex;flex-direction:column;gap:.7rem;justify-content:center}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;padding:.6rem 0;border-block:1px solid rgba(255,255,255,.12)}.facts b{font-size:1.1rem;font-weight:900;color:#fff;display:block}.facts small{font-size:.5rem;color:#8fae9e;font-weight:700}
+.art{border-radius:1.6rem;min-height:12rem;background:linear-gradient(180deg,transparent 50%,rgba(11,18,16,.75)),url('image_24.png') center/cover,linear-gradient(135deg,#14693f,#0f4d5e);border:1px solid rgba(255,255,255,.2);position:relative;overflow:hidden;box-shadow:0 1.5rem 3rem rgba(0,0,0,.5);animation:kb 14s ease-in-out infinite alternate}@keyframes kb{to{background-size:auto,125%,auto}}.cap{position:absolute;bottom:.7rem;left:.7rem;right:.7rem;display:flex;justify-content:space-between;font-size:.55rem;font-weight:700;padding:.5rem .8rem;border-radius:.9rem;background:rgba(11,18,16,.5);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.2)}
+.bld{padding:.4rem;line-height:0}.bld svg{width:100%;height:auto;max-height:52dvh}.win{animation:wn 4s infinite}@keyframes wn{50%{opacity:.35}}.car{animation:dr 9s ease-in-out infinite alternate}@keyframes dr{to{transform:translateX(-95px)}}.wv{animation:wv 3s linear infinite}@keyframes wv{to{transform:translateX(-24px)}}.rays{animation:rt 40s linear infinite;transform-origin:520px 55px}@keyframes rt{to{transform:rotate(360deg)}}
+.dz{height:min(52dvh,24rem);perspective:1500px;border-radius:1.6rem;position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(11,18,16,.3),rgba(11,18,16,.7)),url('image_22.png') center/cover,linear-gradient(135deg,#1b3b2b,#0b1210);border:1px solid rgba(255,255,255,.2);box-shadow:0 1.5rem 3rem rgba(0,0,0,.5);touch-action:none}.spill{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(255,245,200,.55),transparent 65%);opacity:0;transition:opacity 1.2s}.leaf{position:absolute;top:0;bottom:0;left:0;width:62%;transform-origin:left center;transition:transform 1.3s cubic-bezier(.22,1,.36,1);background:linear-gradient(120deg,rgba(60,140,95,.55),rgba(20,60,40,.7));backdrop-filter:blur(18px) saturate(200%);border-right:.2rem solid #52d182;box-shadow:inset 0 0 3rem rgba(255,255,255,.12),0 0 2rem rgba(82,209,130,.3);display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:.7rem;padding:1.2rem 2.5rem 1.2rem 1.2rem}.leaf i{border:1px solid rgba(255,255,255,.25);border-radius:.7rem;background:linear-gradient(135deg,rgba(255,255,255,.18),transparent)}.dz.open .leaf{transform:rotateY(-78deg)}.dz.open .spill{opacity:1}.hd{position:absolute;right:.7rem;top:50%;width:1.6rem;height:1.6rem;margin-top:-.8rem;border-radius:50%;border:0;cursor:pointer;background:radial-gradient(circle at 30% 30%,#fff,#74e39a 40%,#2a7a4b);box-shadow:0 0 1.2rem #52d182;animation:hp 2s infinite}@keyframes hp{50%{box-shadow:0 0 2.2rem #9bf0bd;transform:scale(1.12)}}.dl{position:absolute;left:.8rem;bottom:.8rem;padding:.7rem 1rem;border-radius:1rem;background:rgba(11,18,16,.6);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.18);z-index:3}
+.fl{display:grid;grid-template-columns:1.2fr 1fr;gap:.8rem;padding:1rem}.zs{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}.pz{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:1.1rem;padding:.9rem;color:#fff;cursor:pointer;transition:.4s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;gap:.5rem;text-align:left;font:700 .62rem 'Montserrat';backdrop-filter:blur(10px)}.pz:hover,.pz.is-selected{background:linear-gradient(135deg,rgba(82,209,130,.3),rgba(30,92,58,.45));border-color:#52d182;transform:translateY(-.25rem) scale(1.03);box-shadow:0 .8rem 1.6rem rgba(82,209,130,.25)}.pz i{font-size:1.1rem;color:#52d182}.zd{background:rgba(11,18,16,.5);border-radius:1.2rem;padding:1.1rem;border:1px solid rgba(255,255,255,.14);display:flex;flex-direction:column;gap:.5rem;justify-content:center}.zd b{font-size:2.4rem;font-weight:900;color:rgba(82,209,130,.4)}
+.ag{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem}.ac{min-height:11rem;padding:.9rem;display:flex;flex-direction:column;justify-content:flex-end;gap:.3rem;background-size:cover!important;transition:.5s cubic-bezier(.16,1,.3,1)}.ac:hover{transform:translateY(-.4rem) scale(1.03)}.ac small{font-size:.5rem;font-weight:800;color:#74e39a;margin-bottom:auto}.g1{background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(11,18,16,.92)),url('image_20.png') center,#0f4d5e}.g2{background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(11,18,16,.92)),url('image_18.png') center,#14693f}.g3{background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(11,18,16,.92)),url('image_24.png') center,#1f8a52}.g4{background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(11,18,16,.92)),linear-gradient(135deg,#27493a,#0b1210)}
+.ft{padding:1.3rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:.8rem}.dots{position:fixed;right:.5rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:.5rem;z-index:950}.dots i{width:.4rem;height:.4rem;border-radius:99px;background:rgba(255,255,255,.3);cursor:pointer;transition:.4s}.dots i.on{height:1.3rem;background:#52d182;box-shadow:0 0 .8rem #52d182}.hint{position:fixed;bottom:.7rem;left:50%;transform:translateX(-50%);font-size:.5rem;color:#8fae9e;z-index:950;animation:hb 2s infinite;pointer-events:none}@keyframes hb{50%{transform:translate(-50%,-.3rem)}}.fx{animation:fx 2s ease-out}@keyframes fx{0%,30%{background:rgba(116,227,154,.35);box-shadow:0 0 0 .4rem rgba(116,227,154,.35)}100%{box-shadow:0 0 0 .4rem transparent}}
+@media(max-width:900px){nav,.btn.q{display:none}.hero,.fl{grid-template-columns:1fr}.art{min-height:7rem}.ag{grid-template-columns:1fr 1fr}.ac{min-height:7rem}.hc{padding:1rem}.facts b{font-size:.9rem}.btn.p{padding:.4rem .6rem}}
+@media(max-width:520px){header{padding:0 .55rem}.brand b{font-size:.8rem}.brand i{font-size:.42rem;letter-spacing:.12rem}.act{gap:.3rem}.sw button{padding:.3rem .35rem}.layer{padding:4rem .65rem .8rem}.in{gap:.55rem}.hc{gap:.5rem}.hero{gap:.5rem}.dz{height:44dvh}.dl{max-width:calc(100% - 3.2rem);padding:.55rem}.ag{gap:.45rem}.ac{padding:.65rem}.hint{width:80%;text-align:center}}
+</style>
 </head>
 <body>
-
-    <div class="ambient ambient-one"></div>
-    <div class="ambient ambient-two"></div>
-
-    <header class="site-header">
-        <a class="brand" href="#">
-            <span class="brand-name">FORTUNA</span>
-            <span class="brand-subtitle">PARKSIDE</span>
-        </a>
-        <nav class="main-nav">
-            <a href="#hero">Главная</a>
-            <a href="#interactive-floor">0-й этаж</a>
-            <a href="#territory">Территория</a>
-            <a href="#catalog">Квартиры</a>
-        </nav>
-        <div class="header-actions">
-            
-            <!-- Интерактивная лупа поиска с эффектом жидкого стекла -->
-            <div class="search-glass-container">
-                <button class="search-magnifier-btn" id="searchToggleBtn" aria-label="Поиск по сайту">
-                    <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                        <circle cx="11" cy="11" r="7"></circle>
-                        <path d="m16 16 4 4"></path>
-                    </svg>
-                </button>
-                <div class="search-expand-box" id="searchBox">
-                    <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                        <circle cx="11" cy="11" r="7"></circle>
-                        <path d="m16 16 4 4"></path>
-                    </svg>
-                    <input type="text" id="siteSearchInput" placeholder="Поиск по сайту...">
-                </div>
-            </div>
-
-            <!-- Переключатель языков с лупой iOS -->
-            <div class="language-switch" id="langSwitch" role="group" aria-label="Выбор языка">
-                <button type="button" data-lang="tr">TR</button>
-                <button type="button" data-lang="ru" aria-pressed="true">RU</button>
-                <button type="button" data-lang="en">EN</button>
-                <div class="ios-magnifier" id="iosMagnifier">RU</div>
-            </div>
-
-            <button class="button button-quiet" type="button">Разместить</button>
-            <button class="button button-primary" type="button">Купить квартиру</button>
-        </div>
-    </header>
-
-    <main class="zoom-scene" id="zoomScene">
-        <section class="hero" id="hero">
-            <div class="hero-copy glass-panel">
-                <p class="eyebrow"><span class="eyebrow-dot"></span> Gazipaşa · Antalya · Türkiye</p>
-                <h1>Fortuna<br><span>Parkside</span></h1>
-                <a class="address" href="https://maps.google.com/?q=Haci+Musa+Cd.+68/1" target="_blank">
-                    Hacı Musa Cd. 68/1, 07900 Gazipaşa / Antalya
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
-                <p class="hero-description">Премиальный жилой комплекс у моря с бассейном, сауной, панорамным фитнес-центром и закрытой благоустроенной территорией.</p>
-                <div class="hero-facts">
-                    <div><span class="fact-value">5</span><span class="fact-label">Этажей</span></div>
-                    <div><span class="fact-value"><i class="fa-solid fa-spa"></i></span><span class="fact-label">SPA Floor</span></div>
-                    <div><span class="fact-value"><i class="fa-solid fa-water-ladder"></i></span><span class="fact-label">Бассейн</span></div>
-                </div>
-                <a class="button button-primary" href="#interactive-floor" style="width: fit-content;">Зайти внутрь дома <i class="fa-solid fa-arrow-down"></i></a>
-            </div>
-            <div class="hero-art">
-                <div class="art-caption"><span>36°16' N</span><span>Gazipaşa, Türkiye</span></div>
-            </div>
-        </section>
-
-        <section class="section">
-            <div class="section-heading">
-                <p class="eyebrow">Интерактивный опыт</p>
-                <h2>Виртуальное открытие входной двери</h2>
-            </div>
-            <div class="interactive-door-box" id="doorBox" onclick="toggleDoor()">
-                <div class="door-overlay" id="doorOverlay">
-                    <div class="door-handle-badge">
-                        <i class="fa-solid fa-hand-pointer"></i> Нажмите на ручку двери (или свайп)
-                    </div>
-                </div>
-                <div style="background: rgba(11,18,16,0.85); padding: 1.25rem 2rem; border-radius: 1.25rem; backdrop-filter: blur(10px); z-index: 1;">
-                    <h3 style="font-size: 1.5rem; font-weight: 800; color: #fff;">Главный холл Fortuna</h3>
-                    <p style="color: #a3c2b2; margin-top: 0.25rem;">Дверь открыта: виден холл, мраморный пол и наш пушистый кот.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="interactive-floor">
-            <div class="section-heading">
-                <p class="eyebrow">Пространство для жизни</p>
-                <h2>Интерактивный навигатор: 0-й этаж</h2>
-            </div>
-            <div class="floor-layout glass-panel">
-                <div class="floor-plan">
-                    <button class="plan-zone is-selected" onclick="selectZone(this, 'Главный вход', 'Просторная входная группа с дизайнерским освещением и охраной.', '01')">
-                        <span class="zone-symbol"><i class="fa-solid fa-door-open"></i></span>
-                        <span>Главный вход</span>
-                    </button>
-                    <button class="plan-zone" onclick="selectZone(this, 'Лифтовая зона', 'Два современных бесшумных лифта (1–5 этажи).', '02')">
-                        <span class="zone-symbol"><i class="fa-solid fa-elevator"></i></span>
-                        <span>Лифты</span>
-                    </button>
-                    <button class="plan-zone" onclick="selectZone(this, 'Финская сауна', 'Зона восстановления, расслабления и финская парная.', '03')">
-                        <span class="zone-symbol"><i class="fa-solid fa-hot-tub-person"></i></span>
-                        <span>Сауна</span>
-                    </button>
-                    <button class="plan-zone" onclick="selectZone(this, 'Панорамный спортзал', 'Современные тренажеры, кардиозона и виды на окрестности.', '04')">
-                        <span class="zone-symbol"><i class="fa-solid fa-dumbbell"></i></span>
-                        <span>Фитнес-зал</span>
-                    </button>
-                </div>
-                <aside class="zone-details">
-                    <span class="detail-index" id="zoneIndex">01</span>
-                    <h3 id="zoneTitle">Главный вход</h3>
-                    <p id="zoneDesc">Просторная входная группа с дизайнерским освещением, системой безопасности и комфортным доступом.</p>
-                </aside>
-            </div>
-        </section>
-
-        <section class="section" id="territory">
-            <div class="section-heading">
-                <p class="eyebrow">Всё необходимое рядом</p>
-                <h2>Территория для отдыха и движения</h2>
-            </div>
-            <div class="amenity-grid">
-                <article class="amenity-card amenity-pool">
-                    <span class="amenity-number">01 / Вода</span>
-                    <h3>Бассейн</h3>
-                    <p>Открытый бассейн с подсветкой и зоной для загара под солнцем Газипаши.</p>
-                </article>
-                <article class="amenity-card amenity-wellness">
-                    <span class="amenity-number">02 / Баланс</span>
-                    <h3>SPA и сауна</h3>
-                    <p>Зона восстановления, релаксации и спокойного отдыха.</p>
-                </article>
-                <article class="amenity-card amenity-fitness">
-                    <span class="amenity-number">03 / Энергия</span>
-                    <h3>Панорамный фитнес</h3>
-                    <p>Тренировки с естественным светом и видом на зеленую территорию.</p>
-                </article>
-            </div>
-        </section>
-
-        <footer class="site-footer">
-            <a class="brand" href="#">
-                <span class="brand-name">FORTUNA</span>
-                <span class="brand-subtitle">PARKSIDE</span>
-            </a>
-            <p style="color: #73b88b; font-weight: 600;">Gazipaşa, Antalya · Türkiye</p>
-            <a href="index.html" style="color: #fff; text-decoration: none; font-weight: 700;">Кабинет НСТ <i class="fa-solid fa-arrow-right"></i></a>
-        </footer>
-    </main>
-
-    <script>
-        // Динамический эффект отдаления вглубь экрана при скролле
-        const zoomScene = document.getElementById('zoomScene');
-        
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const scale = Math.max(0.82, 1 - scrollY * 0.0006);
-            const translateZ = -scrollY * 0.2;
-            zoomScene.style.transform = `scale(${scale}) translateZ(${translateZ}px)`;
-        });
-
-        // Раскрытие поиска по клику на лупу
-        const searchToggleBtn = document.getElementById('searchToggleBtn');
-        const searchBox = document.getElementById('searchBox');
-        const siteSearchInput = document.getElementById('siteSearchInput');
-
-        searchToggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            searchBox.classList.toggle('active');
-            if (searchBox.classList.contains('active')) {
-                siteSearchInput.focus();
-            }
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!searchBox.contains(e.target) && !searchToggleBtn.contains(e.target)) {
-                searchBox.classList.remove('active');
-            }
-        });
-
-        function toggleDoor() {
-            const box = document.getElementById('doorBox');
-            box.classList.toggle('opened');
-        }
-
-        function selectZone(btn, title, desc, index) {
-            document.querySelectorAll('.plan-zone').forEach(z => z.classList.remove('is-selected'));
-            btn.classList.add('is-selected');
-            document.getElementById('zoneTitle').innerText = title;
-            document.getElementById('zoneDesc').innerText = desc;
-            document.getElementById('zoneIndex').innerText = index;
-        }
-
-        // Логика лупы и удержания в стиле iOS для языков
-        const langSwitch = document.getElementById('langSwitch');
-        const iosMagnifier = document.getElementById('iosMagnifier');
-        const langButtons = langSwitch.querySelectorAll('button');
-
-        let isHolding = false;
-
-        function handleDrag(clientX) {
-            if (!isHolding) return;
-            const rect = langSwitch.getBoundingClientRect();
-            const x = clientX - rect.left;
-            
-            iosMagnifier.style.left = `${x}px`;
-            iosMagnifier.style.top = `${rect.height / 2}px`;
-
-            langButtons.forEach(btn => {
-                const bRect = btn.getBoundingClientRect();
-                const bLeft = bRect.left - rect.left;
-                const bRight = bRect.right - rect.left;
-
-                if (x >= bLeft && x <= bRight) {
-                    iosMagnifier.innerText = btn.innerText;
-                    btn.setAttribute('aria-pressed', 'true');
-                } else {
-                    btn.setAttribute('aria-pressed', 'false');
-                }
-            });
-        }
-
-        langSwitch.addEventListener('pointerdown', (e) => {
-            isHolding = true;
-            iosMagnifier.classList.add('active');
-            handleDrag(e.clientX);
-            langSwitch.setPointerCapture(e.pointerId);
-        });
-
-        langSwitch.addEventListener('pointermove', (e) => {
-            handleDrag(e.clientX);
-        });
-
-        const endHold = (e) => {
-            if (!isHolding) return;
-            isHolding = false;
-            iosMagnifier.classList.remove('active');
-        };
-
-        langSwitch.addEventListener('pointerup', endHold);
-        langSwitch.addEventListener('pointercancel', endHold);
-
-        langButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                langButtons.forEach(b => b.setAttribute('aria-pressed', 'false'));
-                btn.setAttribute('aria-pressed', 'true');
-            });
-        });
-    </script>
+<div class="amb a1"></div><div class="amb a2"></div><div class="amb a3"></div>
+<header>
+ <a class="brand" data-go="0"><b>FORTUNA</b><i>PARKSIDE</i></a>
+ <nav><a data-go="0">Главная</a><a data-go="1">Здание</a><a data-go="3">0-й этаж</a><a data-go="4">Территория</a></nav>
+ <div class="act">
+  <div class="sg" id="sg">
+   <button class="sb" id="sb" aria-label="Поиск по сайту"><svg class="lens" viewBox="0 0 48 48" fill="none"><defs><radialGradient id="lg" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#74e39a" stop-opacity=".05"/></radialGradient></defs><circle class="lg" cx="20" cy="20" r="13" fill="url(#lg)" stroke="currentColor" stroke-width="3"/><path class="gl" d="M12 16a9 9 0 0 1 7-6" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><line x1="30" y1="30" x2="42" y2="42" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></button>
+   <div class="sx" id="sx"><i class="fa-solid fa-magnifying-glass"></i><input id="si" placeholder="Поиск по сайту..." autocomplete="off"></div>
+   <div class="sr" id="sr"></div>
+  </div>
+  <div class="sw" id="sw"><button data-lang="tr">TR</button><button data-lang="ru" aria-pressed="true">RU</button><button data-lang="en">EN</button><div class="mag" id="mag">RU</div></div>
+  <button class="btn q">Разместить</button><a class="btn p" href="apartments.html">Купить квартиру</a>
+ </div>
+</header>
+<div class="rip" id="rip"></div>
+<div class="stage" id="stage">
+ <section class="layer" data-i="0"><div class="in"><div class="hero">
+  <div class="hc glass"><p class="eb">Gazipaşa · Antalya · Türkiye</p><h1>Fortuna<br><span>Parkside</span></h1>
+   <a class="address" href="https://maps.google.com/?q=Haci+Musa+Cd.+68/1" target="_blank" rel="noopener noreferrer" style="color:#a3c2b2;font-size:.62rem;font-weight:700;text-decoration:none">Hacı Musa Cd. 68/1, 07900 Gazipaşa / Antalya <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+   <p>Премиальный жилой комплекс у моря с бассейном, сауной, панорамным фитнес-центром, паркингом и закрытой территорией.</p>
+   <div class="facts"><div><b>5</b><small>Этажей</small></div><div><b><i class="fa-solid fa-spa"></i></b><small>SPA Floor</small></div><div><b><i class="fa-solid fa-water-ladder"></i></b><small>Бассейн</small></div></div>
+   <a class="btn p" data-go="1" style="width:fit-content">Войти вглубь <i class="fa-solid fa-arrow-down"></i></a></div>
+  <div class="art"><div class="cap"><span>36°16' N</span><span>Gazipaşa, Türkiye</span></div></div></div></div></section>
+ <section class="layer" data-i="1"><div class="in"><div><p class="eb">Комплекс целиком</p><h2>Здание, бассейн и паркинг</h2></div>
+  <div class="glass bld"><svg viewBox="0 0 600 330" id="svg"><defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f4d5e"/><stop offset="1" stop-color="#1f8a52" stop-opacity=".5"/></linearGradient><linearGradient id="bg" x1="0" x2="1"><stop offset="0" stop-color="#e8f5ee" stop-opacity=".35"/><stop offset="1" stop-color="#74e39a" stop-opacity=".15"/></linearGradient></defs>
+   <rect width="600" height="330" fill="url(#sky)"/><g class="rays" opacity=".5"><circle cx="520" cy="55" r="22" fill="#ffe9a8"/><g stroke="#ffe9a8" stroke-width="2"><path d="M520 15v-10M520 105v-10M480 55h-10M570 55h-10"/></g></g>
+   <rect y="215" width="600" height="40" fill="#0f5a6e" opacity=".7"/><g class="wv" opacity=".5" stroke="#9fe6c0" fill="none"><path d="M0 225q12-6 24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0"/></g>
+   <rect y="255" width="600" height="75" fill="#12301f"/><rect x="170" y="60" width="200" height="195" rx="10" fill="url(#bg)" stroke="#fff" stroke-opacity=".5"/><rect x="170" y="52" width="200" height="12" rx="6" fill="#52d182" opacity=".8"/>
+   <g id="wins"></g><rect x="250" y="225" width="40" height="30" rx="4" fill="#52d182" opacity=".6"/><text x="270" y="50" fill="#fff" font-size="10" font-weight="900" text-anchor="middle">FORTUNA PARKSIDE</text>
+   <g id="pool"><rect x="390" y="268" width="180" height="46" rx="14" fill="#2fc4d6" opacity=".7" stroke="#fff" stroke-opacity=".6"/><path class="wv" d="M390 290q12-8 24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0" fill="none" stroke="#fff" opacity=".6"/></g>
+   <rect x="20" y="262" width="140" height="56" rx="8" fill="#1d2b25" stroke="#fff" stroke-opacity=".3"/><g stroke="#fff" stroke-opacity=".5"><path d="M55 268v44M90 268v44M125 268v44"/></g><text x="90" y="258" fill="#9bf0bd" font-size="10" font-weight="700" text-anchor="middle">P ПАРКИНГ</text>
+   <rect x="30" y="285" width="20" height="10" rx="4" fill="#ff6b6b"/><rect x="95" y="285" width="20" height="10" rx="4" fill="#6bb8ff"/><g class="car"><rect x="135" y="298" width="22" height="10" rx="4" fill="#ffd36b"/></g><g fill="#2f8a52"><circle cx="150" cy="250" r="9"/><circle cx="380" cy="248" r="10"/><circle cx="585" cy="250" r="9"/></g></svg></div></div></section>
+ <section class="layer" data-i="2"><div class="in"><div><p class="eb">Интерактивный опыт</p><h2>Виртуальное открытие двери</h2></div>
+  <div class="dz" id="dz"><div class="spill"></div><div class="dl"><h3>Главный холл Fortuna</h3><p id="dt">Нажмите на ручку или слегка потяните вверх — дверь откроется. Потяните вниз — закроется.</p></div><div class="leaf"><i></i><i></i><i></i><i></i></div><button class="hd" id="hd" aria-label="Ручка двери"></button></div></div></section>
+ <section class="layer" data-i="3"><div class="in"><div><p class="eb">Пространство для жизни</p><h2>Навигатор: 0-й этаж</h2></div>
+  <div class="fl glass"><div class="zs"><button class="pz is-selected" data-t="Главный вход" data-d="Просторная входная группа с дизайнерским освещением и охраной." data-n="01"><i class="fa-solid fa-door-open"></i><span>Главный вход</span></button>
+   <button class="pz" data-t="Лифтовая зона" data-d="Два современных бесшумных лифта (1–5 этажи)." data-n="02"><i class="fa-solid fa-elevator"></i><span>Лифты</span></button><button class="pz" data-t="Финская сауна" data-d="Зона восстановления, расслабления и финская парная." data-n="03"><i class="fa-solid fa-hot-tub-person"></i><span>Сауна</span></button><button class="pz" data-t="Панорамный спортзал" data-d="Современные тренажеры, кардиозона и виды на окрестности." data-n="04"><i class="fa-solid fa-dumbbell"></i><span>Фитнес-зал</span></button></div>
+   <aside class="zd"><b id="zn">01</b><h3 id="zt">Главный вход</h3><p id="zp">Просторная входная группа с дизайнерским освещением, системой безопасности и комфортным доступом.</p></aside></div></div></section>
+ <section class="layer" data-i="4"><div class="in"><div><p class="eb">Всё необходимое рядом</p><h2>Территория для отдыха и движения</h2></div>
+  <div class="ag"><article class="ac glass g1"><small>01 / Вода</small><h3>Бассейн</h3><p>Открытый бассейн с подсветкой и зоной для загара.</p></article><article class="ac glass g2"><small>02 / Баланс</small><h3>SPA и сауна</h3><p>Зона восстановления и спокойного отдыха.</p></article><article class="ac glass g3"><small>03 / Энергия</small><h3>Панорамный фитнес</h3><p>Тренировки с естественным светом и видом на зелень.</p></article><article class="ac glass g4"><small>04 / Движение</small><h3>Паркинг</h3><p>Закрытая охраняемая парковка для жителей и гостей.</p></article></div></div></section>
+ <section class="layer" data-i="5"><div class="in"><div class="ft glass"><a class="brand"><b style="font-size:1.6rem">FORTUNA</b><i>PARKSIDE</i></a><p style="color:#73b88b;font-weight:700">Gazipaşa, Antalya · Türkiye</p><a class="btn p" href="apartments.html">Смотреть квартиры <i class="fa-solid fa-arrow-right"></i></a></div></div></section>
+</div>
+<div class="dots" id="dots"></div><div class="hint">Свайп вверх — вглубь · вниз — назад · щипок — зум</div>
+<script>
+const $=s=>document.querySelector(s),L=[...document.querySelectorAll('.layer')],N=L.length;
+let t=0,p=0,uz=1,ox='50%',oy='50%',tx=0,ty=0,idle;
+const dots=$('#dots');L.forEach((_,i)=>{const d=document.createElement('i');d.onclick=()=>go(i);dots.append(d)});
+const go=i=>{t=Math.max(0,Math.min(N-1,i));uz=1;closeS()};
+document.querySelectorAll('[data-go]').forEach(a=>a.onclick=()=>go(+a.dataset.go));
+const W=$('#wins');for(let r=0;r<5;r++)for(let c=0;c<6;c++){const e=document.createElementNS('http://www.w3.org/2000/svg','rect');e.setAttribute('x',184+c*31);e.setAttribute('y',74+r*30);e.setAttribute('width',20);e.setAttribute('height',18);e.setAttribute('rx',3);e.setAttribute('fill','#ffe9a8');e.setAttribute('opacity',Math.random()>.35?.85:.2);e.classList.add('win');e.style.animationDelay=(Math.random()*4)+'s';W.append(e)}
+function render(){L.forEach((el,i)=>{const d=i-p,cur=Math.abs(d)<.5;if(d<-1.3||d>1.7){el.style.visibility='hidden';return}el.style.visibility='visible';let s,o,b;if(d<0){s=1+(-d)*.9;o=Math.max(0,1+d*1.5);b=-d*12}else{s=1-d*.4;o=Math.max(0,1-d*.85);b=d*6}if(cur){s*=uz;el.style.transformOrigin=`${ox} ${oy}`}else el.style.transformOrigin='50% 50%';el.style.transform=`scale(${s}) rotateX(${cur?ty:0}deg) rotateY(${cur?tx:0}deg)`;el.style.opacity=o;el.style.filter=b>.3?`blur(${b}px)`:'none';el.style.pointerEvents=cur?'auto':'none'});const k=Math.round(p);[...dots.children].forEach((d,i)=>d.classList.toggle('on',i==k));document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',+a.dataset.go==k))}
+(function loop(){p+=(t-p)*.11;if(Math.abs(t-p)<.001)p=t;render();requestAnimationFrame(loop)})();
+const snap=()=>{t=Math.round(t)};
+addEventListener('wheel',e=>{e.preventDefault();if(e.ctrlKey){uz=Math.max(1,Math.min(2.5,uz*(1-e.deltaY*.01)));return}if(uz>1.05)return;t=Math.max(0,Math.min(N-1,t+e.deltaY/(innerHeight*.9)));clearTimeout(idle);idle=setTimeout(snap,130)},{passive:false});
+addEventListener('keydown',e=>{if(e.target.tagName=='INPUT')return;if(['ArrowDown','PageDown'].includes(e.key))go(Math.round(t)+1);if(['ArrowUp','PageUp'].includes(e.key))go(Math.round(t)-1)});
+let sy=0,st=0,sv=0,ly=0,lt=0,pd=0,pu=1,swipe=true;
+const inDoor=e=>e.target.closest('#dz'),inRes=e=>e.target.closest('#sr');
+addEventListener('touchstart',e=>{if(inRes(e))return;if(e.touches.length==2){pd=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);pu=uz;ox=((e.touches[0].clientX+e.touches[1].clientX)/2)+'px';oy=((e.touches[0].clientY+e.touches[1].clientY)/2)+'px';swipe=false}else{sy=ly=e.touches[0].clientY;st=t;lt=performance.now();sv=0;swipe=!inDoor(e)}},{passive:false});
+addEventListener('touchmove',e=>{if(inRes(e))return;e.preventDefault();if(e.touches.length==2){uz=Math.max(1,Math.min(2.5,pu*Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY)/pd));return}if(!swipe||uz>1.05)return;const y=e.touches[0].clientY,n=performance.now();sv=(ly-y)/Math.max(1,n-lt);ly=y;lt=n;t=Math.max(0,Math.min(N-1,st+(sy-y)/(innerHeight*.7)))},{passive:false});
+addEventListener('touchend',e=>{if(e.touches.length)return;if(swipe&&uz<=1.05)t=Math.max(0,Math.min(N-1,Math.round(t+Math.max(-.6,Math.min(.6,sv*.8)))));if(uz<1.1)uz=1;swipe=true});
+addEventListener('dblclick',()=>uz=1);
+addEventListener('pointermove',e=>{if(e.pointerType=='mouse'){tx=(e.clientX/innerWidth-.5)*4;ty=-(e.clientY/innerHeight-.5)*4}const g=e.target.closest&&e.target.closest('.glass');if(g){const r=g.getBoundingClientRect();g.style.setProperty('--mx',(e.clientX-r.left)+'px');g.style.setProperty('--my',(e.clientY-r.top)+'px')}const b=e.target.closest&&e.target.closest('#sb');if(b){const r=b.getBoundingClientRect();b.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');b.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%')}});
+const dz=$('#dz'),dt=$('#dt');const door=o=>{dz.classList.toggle('open',o);dt.textContent=o?'Дверь открыта: виден холл, мраморный пол и наш пушистый кот. Потяните вниз — закрыть.':'Дверь закрыта. Нажмите на ручку или потяните вверх.'};
+$('#hd').onclick=e=>{e.stopPropagation();door(!dz.classList.contains('open'))};let dy0=null;dz.addEventListener('pointerdown',e=>dy0=e.clientY);dz.addEventListener('pointermove',e=>{if(dy0==null)return;const d=e.clientY-dy0;if(d<-18){door(true);dy0=null}else if(d>18){door(false);dy0=null}});addEventListener('pointerup',()=>dy0=null);
+document.querySelectorAll('.pz').forEach(b=>b.onclick=()=>{document.querySelectorAll('.pz').forEach(z=>z.classList.remove('is-selected'));b.classList.add('is-selected');$('#zt').textContent=b.dataset.t;$('#zp').textContent=b.dataset.d;$('#zn').textContent=b.dataset.n});
+const sw=$('#sw'),mag=$('#mag'),lb=sw.querySelectorAll('button');let hold=false;
+const drag=x=>{if(!hold)return;const r=sw.getBoundingClientRect(),X=x-r.left;mag.style.left=X+'px';mag.style.top=r.height/2+'px';lb.forEach(b=>{const q=b.getBoundingClientRect();if(X>=q.left-r.left&&X<=q.right-r.left){mag.textContent=b.textContent;b.setAttribute('aria-pressed','true')}else b.setAttribute('aria-pressed','false')})};
+sw.addEventListener('pointerdown',e=>{hold=true;mag.classList.add('on');drag(e.clientX);sw.setPointerCapture(e.pointerId)});sw.addEventListener('pointermove',e=>drag(e.clientX));['pointerup','pointercancel'].forEach(v=>sw.addEventListener(v,()=>{hold=false;mag.classList.remove('on')}));
+lb.forEach(b=>b.onclick=()=>{lb.forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true')});
+const sb=$('#sb'),sx=$('#sx'),si=$('#si'),sr=$('#sr'),rip=$('#rip');let idx=[],fi=-1,found=[];
+const esc=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function openS(){const r=sb.getBoundingClientRect();rip.style.setProperty('--cx',r.left+r.width/2+'px');rip.style.setProperty('--cy',r.top+r.height/2+'px');document.body.classList.add('so');sx.classList.add('on');idx=[...document.querySelectorAll('.layer h1,.layer h2,.layer h3,.layer p,.layer small,.layer .pz span,.layer .address')].map(el=>({el,text:el.textContent.replace(/\s+/g,' ').trim()})).filter(i=>i.text);setTimeout(()=>si.focus(),250)}
+function closeS(){document.body.classList.remove('so');sx.classList.remove('on');sr.classList.remove('show');si.blur();si.value=''}
+function res(q){fi=-1;q=q.trim().toLowerCase();if(!q){sr.classList.remove('show');return}found=idx.filter(i=>i.text.toLowerCase().includes(q)).slice(0,8);sr.innerHTML=found.length?found.map((i,n)=>{const k=i.text.toLowerCase().indexOf(q),s=Math.max(0,k-25),pc=(s?'…':'')+i.text.slice(s,k+q.length+55);return`<div class="si" data-n="${n}">${esc(pc).replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>')}</div>`}).join(''):'<div class="se">Ничего не найдено</div>';sr.querySelectorAll('.si').forEach((n,i)=>n.onclick=()=>jump(found[i].el));sr.classList.add('show')}
+function jump(el){const i=+el.closest('.layer').dataset.i;closeS();go(i);setTimeout(()=>{el.classList.remove('fx');void el.offsetWidth;el.classList.add('fx');setTimeout(()=>el.classList.remove('fx'),2100)},700)}
+sb.onclick=e=>{e.stopPropagation();document.body.classList.contains('so')?closeS():openS()};rip.onclick=closeS;si.oninput=()=>res(si.value);
+si.onkeydown=e=>{const it=[...sr.querySelectorAll('.si')];if(e.key=='Escape')closeS();else if(e.key=='ArrowDown'||e.key=='ArrowUp'){e.preventDefault();if(!it.length)return;fi=(fi+(e.key=='ArrowDown'?1:-1)+it.length)%it.length;it.forEach((n,i)=>n.classList.toggle('f',i==fi))}else if(e.key=='Enter'&&found.length)jump(found[Math.max(fi,0)].el)};
+addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()=='k'){e.preventDefault();openS()}});
+</script>
 </body>
 </html>
