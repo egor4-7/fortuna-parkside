@@ -102,6 +102,17 @@
             align-items: center;
         }
 
+        .search-icon {
+            width: 18px;
+            height: 18px;
+            flex: 0 0 auto;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
         .search-magnifier-btn {
             width: 44px;
             height: 44px;
@@ -186,7 +197,7 @@
             color: #8fae9e;
         }
 
-        .search-expand-box .fa-magnifying-glass {
+        .search-expand-box .search-icon {
             position: absolute;
             left: 15px;
             color: #74e39a;
@@ -500,10 +511,16 @@
             <!-- Интерактивная лупа поиска с эффектом жидкого стекла -->
             <div class="search-glass-container">
                 <button class="search-magnifier-btn" id="searchToggleBtn" aria-label="Поиск по сайту">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <path d="m16 16 4 4"></path>
+                    </svg>
                 </button>
                 <div class="search-expand-box" id="searchBox">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <path d="m16 16 4 4"></path>
+                    </svg>
                     <input type="text" id="siteSearchInput" placeholder="Поиск по сайту...">
                 </div>
             </div>
