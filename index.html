@@ -95,6 +95,103 @@
             gap: 1rem;
         }
 
+        /* ЭПЛОВСКАЯ ЖИДКАЯ ЛУПА ПОИСКА (Liquid Glass Search Magnifier) */
+        .search-glass-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-magnifier-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            color: #74e39a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.4);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Блик жидкого стекла при наведении */
+        .search-magnifier-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%);
+            transform: rotate(45deg) translateX(-100%);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .search-magnifier-btn:hover {
+            transform: scale(1.15);
+            background: rgba(82, 209, 130, 0.2);
+            border-color: #52d182;
+            box-shadow: 0 12px 35px rgba(82, 209, 130, 0.4), inset 0 2px 4px rgba(255,255,255,0.6);
+        }
+
+        .search-magnifier-btn:hover::before {
+            transform: rotate(45deg) translateX(100%);
+        }
+
+        /* Выпадающее поле поиска с эффектом жидкого стекла */
+        .search-expand-box {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 44px;
+            height: 44px;
+            background: rgba(18, 30, 25, 0.85);
+            backdrop-filter: blur(30px) saturate(220%);
+            -webkit-backdrop-filter: blur(30px) saturate(220%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            overflow: hidden;
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            z-index: 1050;
+        }
+
+        .search-expand-box.active {
+            width: 280px;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .search-expand-box input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 0.9rem;
+            width: 100%;
+            outline: none;
+            padding-left: 30px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .search-expand-box input::placeholder {
+            color: #8fae9e;
+        }
+
+        .search-expand-box .fa-magnifying-glass {
+            position: absolute;
+            left: 15px;
+            color: #74e39a;
+        }
+
         /* Переключатель языков с лупой iOS */
         .language-switch {
             display: flex;
@@ -126,7 +223,6 @@
             color: #0b1210;
         }
 
-        /* iOS Liquid Magnifier */
         .ios-magnifier {
             position: absolute;
             width: 90px;
@@ -186,7 +282,7 @@
             background: rgba(255, 255, 255, 0.15);
         }
 
-        /* Эпловский контейнер с динамическим зумом и отдалением вглубь */
+        /* Сцена с зумом */
         .zoom-scene {
             padding: 100px 2vw 4vw 2vw;
             display: flex;
@@ -274,7 +370,6 @@
         .fact-value { font-size: 2rem; font-weight: 900; color: #fff; display: block; }
         .fact-label { font-size: 0.85rem; color: #8fae9e; font-weight: 600; margin-top: 0.25rem; display: block; }
 
-        /* Фото здания `image_24.png` справа */
         .hero-art {
             border-radius: 2.5rem;
             overflow: hidden;
@@ -401,6 +496,18 @@
             <a href="#catalog">Квартиры</a>
         </nav>
         <div class="header-actions">
+            
+            <!-- Интерактивная лупа поиска с эффектом жидкого стекла -->
+            <div class="search-glass-container">
+                <button class="search-magnifier-btn" id="searchToggleBtn" aria-label="Поиск по сайту">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <div class="search-expand-box" id="searchBox">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="siteSearchInput" placeholder="Поиск по сайту...">
+                </div>
+            </div>
+
             <!-- Переключатель языков с лупой iOS -->
             <div class="language-switch" id="langSwitch" role="group" aria-label="Выбор языка">
                 <button type="button" data-lang="tr">TR</button>
@@ -408,12 +515,12 @@
                 <button type="button" data-lang="en">EN</button>
                 <div class="ios-magnifier" id="iosMagnifier">RU</div>
             </div>
+
             <button class="button button-quiet" type="button">Разместить</button>
             <button class="button button-primary" type="button">Купить квартиру</button>
         </div>
     </header>
 
-    <!-- Сцена с динамическим отдалением вглубь при скролле -->
     <main class="zoom-scene" id="zoomScene">
         <section class="hero" id="hero">
             <div class="hero-copy glass-panel">
@@ -521,15 +628,33 @@
     </main>
 
     <script>
-        // Динамический эффект отдаления вглубь экрана (Zoom-Out / Depth Perspective)
+        // Динамический эффект отдаления вглубь экрана при скролле
         const zoomScene = document.getElementById('zoomScene');
         
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
-            // При скролле вверх/вниз сцена плавно отдаляется вглубь (уменьшается масштаб и уходит по оси Z)
             const scale = Math.max(0.82, 1 - scrollY * 0.0006);
             const translateZ = -scrollY * 0.2;
             zoomScene.style.transform = `scale(${scale}) translateZ(${translateZ}px)`;
+        });
+
+        // Раскрытие поиска по клику на лупу
+        const searchToggleBtn = document.getElementById('searchToggleBtn');
+        const searchBox = document.getElementById('searchBox');
+        const siteSearchInput = document.getElementById('siteSearchInput');
+
+        searchToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            searchBox.classList.toggle('active');
+            if (searchBox.classList.contains('active')) {
+                siteSearchInput.focus();
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!searchBox.contains(e.target) && !searchToggleBtn.contains(e.target)) {
+                searchBox.classList.remove('active');
+            }
         });
 
         function toggleDoor() {
@@ -545,7 +670,7 @@
             document.getElementById('zoneIndex').innerText = index;
         }
 
-        // Логика лупы и удержания в стиле iOS (Liquid Magnifier) для языков
+        // Логика лупы и удержания в стиле iOS для языков
         const langSwitch = document.getElementById('langSwitch');
         const iosMagnifier = document.getElementById('iosMagnifier');
         const langButtons = langSwitch.querySelectorAll('button');
