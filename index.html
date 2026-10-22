@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0d0f1a">
+    <meta name="theme-color" content="#121c15">
     <title>Fortuna Parkside by Gazivisor — Премиальный комплекс</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -19,8 +19,8 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #0b0d17;
-            color: #f1f5f9;
+            background-color: #121c15;
+            color: #f1f5f2;
             overflow-x: hidden;
             width: 100vw;
             min-height: 100vh;
@@ -28,35 +28,24 @@
             overflow-y: auto;
         }
 
-        /* Глубокий градиент в стиле Apple SwiftUI */
-        .swiftui-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 30%, #4a154b 70%, #240c26 100%);
-            z-index: -2;
-        }
-
-        /* Анимированные световые переливы */
-        .ambient-glow {
+        /* Фирменные оливковые градиенты Gazivisor */
+        .ambient {
             position: fixed;
             width: 60vw;
             height: 60vw;
             border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.4;
-            pointer-events: none;
+            filter: blur(130px);
             z-index: -1;
-            animation: moveGlow 12s ease-in-out infinite alternate;
+            opacity: 0.35;
+            pointer-events: none;
+            animation: floatAmbient 12s ease-in-out infinite alternate;
         }
-        .glow-1 { top: -10%; left: -10%; background: #3b82f6; }
-        .glow-2 { bottom: -10%; right: -10%; background: #a855f7; animation-delay: -6s; }
+        .ambient-one { top: -10%; left: -10%; background: #2f4935; }
+        .ambient-two { bottom: 10%; right: -10%; background: #1a3321; animation-delay: -4s; }
 
-        @keyframes moveGlow {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(40px, 40px) scale(1.15); }
+        @keyframes floatAmbient {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(40px) scale(1.1); }
         }
 
         /* Шапка */
@@ -66,10 +55,10 @@
             left: 0;
             right: 0;
             height: 85px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(30px) saturate(200%);
-            -webkit-backdrop-filter: blur(30px) saturate(200%);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(18, 28, 21, 0.85);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -85,20 +74,20 @@
             line-height: 1.1;
         }
         .brand-name { font-weight: 900; font-size: 1.35rem; letter-spacing: -0.5px; }
-        .brand-subtitle { font-weight: 600; font-size: 0.7rem; color: #a5b4fc; letter-spacing: 2px; }
+        .brand-subtitle { font-weight: 600; font-size: 0.7rem; color: #72b286; letter-spacing: 2px; }
 
         .main-nav {
             display: flex;
             gap: 2.2rem;
         }
         .main-nav a {
-            color: rgba(255, 255, 255, 0.8);
+            color: #b9d0c2;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.92rem;
             transition: color 0.3s;
         }
-        .main-nav a:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        .main-nav a:hover { color: #5ddc8a; }
 
         .header-actions {
             display: flex;
@@ -106,7 +95,7 @@
             gap: 1rem;
         }
 
-        /* Поиск с лупой */
+        /* Поиск с лупой (исправлено открытие/закрытие) */
         .search-glass-container {
             position: relative;
             display: flex;
@@ -114,23 +103,24 @@
         }
         .search-magnifier-btn {
             width: 44px; height: 44px; border-radius: 50%;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(20px);
-            color: #fff; display: flex; align-items: center; justify-content: center;
+            color: #5ddc8a; display: flex; align-items: center; justify-content: center;
             cursor: pointer; position: relative; overflow: hidden;
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .search-magnifier-btn:hover {
             transform: scale(1.1);
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(93, 220, 138, 0.2);
+            border-color: #5ddc8a;
         }
         .search-expand-box {
             position: absolute; right: 0; top: 0; width: 44px; height: 44px;
-            background: rgba(30, 41, 59, 0.85);
+            background: rgba(21, 33, 25, 0.95);
             backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 999px; display: flex; align-items: center; padding: 0 12px;
             overflow: hidden; pointer-events: none; opacity: 0;
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -141,34 +131,23 @@
             background: transparent; border: none; color: #fff; font-size: 0.9rem;
             width: 100%; outline: none; padding-left: 30px; font-family: 'Montserrat', sans-serif;
         }
-        .search-expand-box input::placeholder { color: rgba(255,255,255,0.6); }
-        .search-expand-box .fa-magnifying-glass { position: absolute; left: 15px; color: #fff; }
+        .search-expand-box input::placeholder { color: #8fa898; }
+        .search-expand-box .fa-magnifying-glass { position: absolute; left: 15px; color: #5ddc8a; }
 
-        /* Переключатель языков с iOS лупой */
+        /* Переключатель языков (исправлены клики) */
         .language-switch {
-            display: flex; background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 999px;
-            padding: 0.25rem; gap: 0.25rem; backdrop-filter: blur(15px); position: relative; cursor: grab;
+            display: flex; background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 999px;
+            padding: 0.25rem; gap: 0.25rem; backdrop-filter: blur(10px); position: relative;
         }
         .language-switch button {
-            background: transparent; border: none; color: rgba(255,255,255,0.8); font-weight: 700;
+            background: transparent; border: none; color: #b9d0c2; font-weight: 700;
             font-size: 0.75rem; padding: 0.4rem 0.75rem; border-radius: 999px; cursor: pointer;
             transition: all 0.3s; position: relative; z-index: 2;
         }
-        .language-switch button[aria-pressed="true"], .language-switch button:hover {
-            background: #ffffff; color: #0b0d17;
+        .language-switch button.active, .language-switch button:hover {
+            background: #5ddc8a; color: #0e1711;
         }
-        .ios-magnifier {
-            position: absolute; width: 90px; height: 50px;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(20px) saturate(220%);
-            border: 2px solid rgba(255, 255, 255, 0.7); border-radius: 999px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            pointer-events: none; transform: translate(-50%, -50%) scale(0);
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); z-index: 10;
-            display: flex; align-items: center; justify-content: center; font-weight: 900; color: #fff;
-        }
-        .ios-magnifier.active { transform: translate(-50%, -50%) scale(1.15) translateY(-25px); }
 
         .button {
             padding: 0.75rem 1.5rem; border-radius: 999px; font-weight: 700; font-size: 0.9rem;
@@ -176,11 +155,10 @@
             display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; border: none;
         }
         .button-primary {
-            background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.15));
-            border: 1px solid rgba(255,255,255,0.4); color: #fff;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255,255,255,0.6);
+            background: linear-gradient(135deg, #5ddc8a, #359858); color: #08120b;
+            box-shadow: 0 8px 25px rgba(53, 152, 88, 0.4);
         }
-        .button-primary:hover { transform: scale(1.05); background: rgba(255,255,255,0.4); }
+        .button-primary:hover { transform: scale(1.05); box-shadow: 0 12px 35px rgba(53, 152, 88, 0.6); }
 
         /* Зум сцена */
         .zoom-scene {
@@ -189,17 +167,12 @@
             transition: transform 0.1s cubic-bezier(0.1, 0.9, 0.2, 1); will-change: transform;
         }
 
-        /* Настоящий эффект Liquid Glass для панелей */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(40px) saturate(210%);
-            -webkit-backdrop-filter: blur(40px) saturate(210%);
-            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: rgba(21, 33, 25, 0.75);
+            backdrop-filter: blur(30px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 2.5rem;
-            box-shadow: 
-                0 30px 60px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(255, 255, 255, 0.5),
-                inset 0 -1px 1px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
             position: relative; overflow: hidden;
         }
 
@@ -208,63 +181,61 @@
         .hero-copy { padding: 4.5rem; display: flex; flex-direction: column; justify-content: space-between; }
         .eyebrow {
             font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
-            color: #93c5fd; display: flex; align-items: center; gap: 0.5rem;
+            color: #5ddc8a; display: flex; align-items: center; gap: 0.5rem;
         }
-        .eyebrow-dot { width: 8px; height: 8px; background: #93c5fd; border-radius: 50%; box-shadow: 0 0 12px #93c5fd; }
+        .eyebrow-dot { width: 8px; height: 8px; background: #5ddc8a; border-radius: 50%; box-shadow: 0 0 12px #5ddc8a; }
         .hero h1 { font-size: clamp(3rem, 5vw, 5.5rem); font-weight: 900; line-height: 1.05; letter-spacing: -2px; color: #fff; margin: 1.5rem 0; }
-        .hero h1 span { color: #c084fc; }
-        .address { color: rgba(255,255,255,0.8); text-decoration: none; font-weight: 600; font-size: 1.05rem; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; }
-        .hero-description { font-size: 1.15rem; line-height: 1.6; color: rgba(255,255,255,0.85); margin-bottom: 2.5rem; }
+        .hero h1 span { color: #5ddc8a; }
+        .address { color: #b9d0c2; text-decoration: none; font-weight: 600; font-size: 1.05rem; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .hero-description { font-size: 1.15rem; line-height: 1.6; color: #d0e3d7; margin-bottom: 2.5rem; }
         .hero-facts {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-            padding: 2rem 0; border-top: 1px solid rgba(255,255,255,0.15); border-bottom: 1px solid rgba(255,255,255,0.15); margin-bottom: 2.5rem;
+            padding: 2rem 0; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 2.5rem;
         }
         .fact-value { font-size: 2rem; font-weight: 900; color: #fff; display: block; }
-        .fact-label { font-size: 0.85rem; color: rgba(255,255,255,0.6); font-weight: 600; margin-top: 0.25rem; display: block; }
+        .fact-label { font-size: 0.85rem; color: #8fa898; font-weight: 600; margin-top: 0.25rem; display: block; }
 
         /* Сетка комплекса */
         .complex-grid-box {
-            padding: 3rem; background: rgba(255, 255, 255, 0.08); border-radius: 2.5rem;
-            border: 1px solid rgba(255,255,255,0.2); display: flex; flex-direction: column; gap: 2rem;
-            backdrop-filter: blur(30px); box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            padding: 3rem; background: rgba(21, 33, 25, 0.85); border-radius: 2.5rem;
+            border: 1px solid rgba(255,255,255,0.12); display: flex; flex-direction: column; gap: 2rem;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
         }
         .complex-grid {
             display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem;
-            background: rgba(0, 0, 0, 0.3); padding: 2rem; border-radius: 1.5rem; border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(12, 20, 15, 0.5); padding: 2rem; border-radius: 1.5rem; border: 1px solid rgba(255,255,255,0.1);
         }
         .grid-item {
-            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(93, 220, 138, 0.15); border: 1px solid rgba(93, 220, 138, 0.4);
             border-radius: 1rem; height: 60px; transition: all 0.3s; cursor: pointer;
         }
-        .grid-item:hover { background: rgba(255, 255, 255, 0.3); transform: scale(1.05); }
+        .grid-item:hover { background: rgba(93, 220, 138, 0.4); transform: scale(1.05); }
 
         /* Удобства */
         .amenity-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
         .amenity-card {
             border-radius: 2.5rem; padding: 3rem; min-height: 380px;
             display: flex; flex-direction: column; justify-content: flex-end; position: relative; overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            background-blend-mode: overlay;
+            border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
-        .amenity-pool { background: linear-gradient(180deg, rgba(0,0,0,0.1) 30%, rgba(11,13,23,0.95) 100%), url('image_20.png') center/cover no-repeat; }
-        .amenity-wellness { background: linear-gradient(180deg, rgba(0,0,0,0.1) 30%, rgba(11,13,23,0.95) 100%), url('image_18.png') center/cover no-repeat; }
-        .amenity-parking { background: linear-gradient(180deg, rgba(0,0,0,0.1) 30%, rgba(11,13,23,0.95) 100%), url('image_24.png') center/cover no-repeat; }
-        .amenity-number { font-size: 0.9rem; font-weight: 800; color: #93c5fd; margin-bottom: auto; }
+        .amenity-pool { background: linear-gradient(180deg, rgba(0,0,0,0.2) 30%, rgba(12,20,15,0.95) 100%), url('image_20.png') center/cover no-repeat; }
+        .amenity-wellness { background: linear-gradient(180deg, rgba(0,0,0,0.2) 30%, rgba(12,20,15,0.95) 100%), url('image_18.png') center/cover no-repeat; }
+        .amenity-parking { background: linear-gradient(180deg, rgba(0,0,0,0.2) 30%, rgba(12,20,15,0.95) 100%), url('image_24.png') center/cover no-repeat; }
+        .amenity-number { font-size: 0.9rem; font-weight: 800; color: #5ddc8a; margin-bottom: auto; }
         .amenity-card h3 { font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 0.5rem; }
-        .amenity-card p { font-size: 1.05rem; color: rgba(255,255,255,0.8); line-height: 1.5; }
+        .amenity-card p { font-size: 1.05rem; color: #d0e3d7; line-height: 1.5; }
 
         .site-footer {
-            margin-top: 4rem; padding: 3rem 5vw; border-top: 1px solid rgba(255,255,255,0.15);
-            display: flex; justify-content: space-between; align-items: center; background: rgba(11, 13, 23, 0.9);
+            margin-top: 4rem; padding: 3rem 5vw; border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex; justify-content: space-between; align-items: center; background: rgba(12, 20, 15, 0.95);
             border-radius: 2.5rem 2.5rem 0 0; flex-wrap: wrap; gap: 1.5rem;
-            backdrop-filter: blur(30px);
         }
 
         .footer-contacts {
             display: flex; gap: 2rem; align-items: center;
         }
         .footer-contacts a {
-            color: #93c5fd; text-decoration: none; font-weight: 700; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 0.5rem;
+            color: #5ddc8a; text-decoration: none; font-weight: 700; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 0.5rem;
         }
 
         @media(max-width: 1024px) {
@@ -275,10 +246,8 @@
 </head>
 <body>
 
-    <div class="swiftui-background">
-        <div class="ambient-glow glow-1"></div>
-        <div class="ambient-glow glow-2"></div>
-    </div>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
 
     <header class="site-header">
         <a class="brand" href="https://www.gazivisor.com/tr" target="_blank">
@@ -292,8 +261,8 @@
             <a href="https://www.gazivisor.com/tr" target="_blank">Gazivisor.com</a>
         </nav>
         <div class="header-actions">
-            <!-- Поиск с лупой -->
-            <div class="search-glass-container">
+            <!-- Поиск с лупой (клик открывает, повторный клик или клик вне — закрывает) -->
+            <div class="search-glass-container" id="searchContainer">
                 <button class="search-magnifier-btn" id="searchToggleBtn" aria-label="Поиск">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
@@ -303,12 +272,11 @@
                 </div>
             </div>
 
-            <!-- Переключатель языков с iOS лупой -->
-            <div class="language-switch" id="langSwitch" role="group">
+            <!-- Переключатель языков (простые клики по кнопкам) -->
+            <div class="language-switch" id="langSwitch">
                 <button type="button" data-lang="tr">TR</button>
-                <button type="button" data-lang="ru" aria-pressed="true">RU</button>
+                <button type="button" data-lang="ru" class="active">RU</button>
                 <button type="button" data-lang="en">EN</button>
-                <div class="ios-magnifier" id="iosMagnifier">RU</div>
             </div>
 
             <a class="button button-primary" href="tel:+905321387139"><i class="fa-solid fa-phone"></i> Связаться</a>
@@ -350,17 +318,17 @@
 
         <!-- Удобства -->
         <section class="amenity-grid" id="territory">
-            <article class="amenity-card amenity-pool glass-panel">
+            <article class="amenity-card amenity-pool">
                 <span class="amenity-number">01 / Вода</span>
                 <h3>Бассейн</h3>
                 <p>Открытый бассейн с подсветкой и зоной для отдыха.</p>
             </article>
-            <article class="amenity-card amenity-wellness glass-panel">
+            <article class="amenity-card amenity-wellness">
                 <span class="amenity-number">02 / Баланс</span>
                 <h3>SPA и сауна</h3>
                 <p>Зона восстановления и приватного релакса.</p>
             </article>
-            <article class="amenity-card amenity-parking glass-panel">
+            <article class="amenity-card amenity-parking">
                 <span class="amenity-number">03 / Комфорт</span>
                 <h3>Паркинг</h3>
                 <p>Охраняемая парковка для жильцов комплекса.</p>
@@ -388,43 +356,30 @@
             zoomScene.style.transform = `scale(${scale})`;
         });
 
-        // Поиск с расширением стекла
+        // Исправленный поиск (открывается и закрывается по клику)
         const searchBtn = document.getElementById('searchToggleBtn');
         const searchBox = document.getElementById('searchBox');
+        const searchContainer = document.getElementById('searchContainer');
+
         searchBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             searchBox.classList.toggle('active');
         });
 
-        // iOS лупа языков
-        const langSwitch = document.getElementById('langSwitch');
-        const iosMagnifier = document.getElementById('iosMagnifier');
-        const langButtons = langSwitch.querySelectorAll('button');
-        let isHolding = false;
-
-        langSwitch.addEventListener('pointerdown', (e) => {
-            isHolding = true;
-            iosMagnifier.classList.add('active');
-            langSwitch.setPointerCapture(e.pointerId);
+        document.addEventListener('click', (e) => {
+            if (!searchContainer.contains(e.target)) {
+                searchBox.classList.remove('active');
+            }
         });
-        langSwitch.addEventListener('pointermove', (e) => {
-            if (!isHolding) return;
-            const rect = langSwitch.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            iosMagnifier.style.left = `${x}px`;
-            langButtons.forEach(btn => {
-                const bRect = btn.getBoundingClientRect();
-                if (e.clientX >= bRect.left && e.clientX <= bRect.right) {
-                    iosMagnifier.innerText = btn.innerText;
-                    btn.setAttribute('aria-pressed', 'true');
-                } else {
-                    btn.setAttribute('aria-pressed', 'false');
-                }
+
+        // Исправленный переключатель языков (обычные надежные клики)
+        const langButtons = document.querySelectorAll('#langSwitch button');
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                langButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
             });
         });
-        const endHold = () => { isHolding = false; iosMagnifier.classList.remove('active'); };
-        langSwitch.addEventListener('pointerup', endHold);
-        langSwitch.addEventListener('pointercancel', endHold);
     </script>
 </body>
 </html>
